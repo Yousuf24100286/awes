@@ -1,12 +1,12 @@
 'use server';
 
 import * as z from 'zod';
-import { Step3Schema } from '@/schemas/application';
+import { Step1Schema } from '@/schemas/application';
 
-export const step3 = async (
-  values: z.infer<typeof Step3Schema>
+export const step1 = async (
+  values: z.infer<typeof Step1Schema>
 ) => {
-  const validatedFields = Step3Schema.safeParse(values);
+  const validatedFields = Step1Schema.safeParse(values);
 
   if (!validatedFields.success) {
     return { error: 'Invalid fields!' };
@@ -14,5 +14,5 @@ export const step3 = async (
 
   console.log(validatedFields.data);
 
-  return { success: 'Successfully updated step3!' };
+  return { success: 'Successfully updated step1!' };
 };

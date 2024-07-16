@@ -14,5 +14,5 @@ export const step3 = async (
 
   console.log(validatedFields.data);
 
-  return { success: 'Successfully updated step2!' };
+  return { success: 'Successfully updated step3!' };
 };

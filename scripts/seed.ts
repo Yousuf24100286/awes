@@ -1,5 +1,6 @@
-import { db } from './lib/db';
-import bcrypt from 'bcryptjs';
+require('dotenv/config');
+const { PrismaClient } = require('@prisma/client');
+const bcrypt = require('bcryptjs');
 
 const urls = [
   'https://example.com/document1.pdf',
@@ -21,9 +22,14 @@ function getRandomUrl() {
 }
 
 async function main() {
+  const prisma = new PrismaClient();
+  console.log('seeding database');
+
   const password = process.env.PASSWORD_HASH!;
   const hashedPassword = await bcrypt.hash(password, 10);
-  const user = await db.user.create({
+  console.log('password', password);
+  console.log('hashedPassword', hashedPassword);
+  const user = await prisma.user.create({
     data: {
       name: 'Muhammad Hammad',
       email: 'hammadtariq838@gmail.com',
@@ -32,7 +38,7 @@ async function main() {
     },
   });
 
-  const application = await db.application.create({
+  const application = await prisma.application.create({
     data: {
       applicationStep: 'STEP_1',
       name: 'Muhammad Hammad',
@@ -92,6 +98,7 @@ async function main() {
   });
 
   console.log({ user, application });
+  console.log('seeding finished');
 }
 
 main()
@@ -99,6 +106,4 @@ main()
     console.error(e);
     process.exit(1);
   })
-  .finally(async () => {
-    await db.$disconnect();
-  });
+  .finally(async () => {});

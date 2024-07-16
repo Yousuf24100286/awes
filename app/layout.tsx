@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google'
 import { SessionProvider } from 'next-auth/react'
 import { auth } from '@/auth'
 import './globals.css'
-import "@uploadthing/react/styles.css";
+// import "@uploadthing/react/styles.css";
 import { Toaster } from "@/components/ui/sonner";
 
 // uploadthing
@@ -31,7 +31,7 @@ export default async function RootLayout({
       <html lang="en">
         <body className={inter.className}>
           <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
-          <Toaster />
+          <Toaster position='top-center' richColors />
           {children}
         </body>
       </html>

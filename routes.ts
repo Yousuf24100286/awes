@@ -1,8 +1,8 @@
 export const publicRoutes = [
   '/',
+  '/about-us',
+  '/services',
   '/auth/new-verification',
-  // test route
-  '/upload',
   // uploadthing
   '/api/uploadthing',
 ];

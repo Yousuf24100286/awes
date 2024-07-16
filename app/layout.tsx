@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'AWES',
-  description: 'We are a leading technology agency specializing in innovative solutions, including process automation, custom software development, and IT consultation.',
+  description: 'AWES is a leading technology agency specializing in innovative solutions, including process automation, custom software development, and IT consultation.',
 }
 
 export default async function RootLayout({

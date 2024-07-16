@@ -8,8 +8,8 @@ import { Toaster } from "@/components/ui/sonner";
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Next Auth v5',
-  description: 'Next.js + NextAuth.js v5 + Prisma + TypeScript',
+  title: 'AWES',
+  description: 'We are a leading technology agency specializing in innovative solutions, including process automation, custom software development, and IT consultation.',
 }
 
 export default async function RootLayout({

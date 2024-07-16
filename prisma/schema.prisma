@@ -16,7 +16,6 @@ enum ApplicationStep {
   STEP_1
   STEP_2
   STEP_3
-  STEP_4
 }
 
 model User {
@@ -77,6 +76,7 @@ model Application {
   applicationStep ApplicationStep @default(STEP_1)
   feedback        String?
 
+  // STEP 1
   name                   String?
   dateOfBirth            String?
   phoneNumber            String?
@@ -92,6 +92,7 @@ model Application {
   highSchoolGrades       String?
   curriculumVitae        String?
 
+  // STEP 2
   nationalId                   String?
   passportPhoto                String?
   passportId                   String?
@@ -99,17 +100,19 @@ model Application {
   nursingSchoolTranscript      String?
   nursingExperienceCertificate String?
 
-  toeflExamResult     String?
-  usNursingEvaluation String?
-  usCgfnsCertificate  String?
-  usVisaScreen        String?
-  usJobOffer          String?
-
+  // STEP 3
   usSocialSecurityCard String?
   usGreenCard          String?
   birthCertificate     String?
   spouseDetails        SpouseDetail[]
   childrenDetails      ChildrenDetail[]
+
+  // Documents
+  toeflExamResult     String?
+  usNursingEvaluation String?
+  usCgfnsCertificate  String?
+  usVisaScreen        String?
+  usJobOffer          String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

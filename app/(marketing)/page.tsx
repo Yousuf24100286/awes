@@ -1,5 +1,4 @@
 import Footer from '@/components/Footer';
-import Navbar from '@/components/Navbar';
 
 const features = [
   {
@@ -116,8 +115,7 @@ const ProcessStep = ({ title, description, image }: { image: string, title: stri
 
 export default function LandingPage() {
   return (
-    <main className='bg-[#FFFCF7]'>
-      <Navbar />
+    <>
       <header className="flex flex-col w-full bg-teal-800 px-5">
         <div className="self-center mt-20 w-full max-w-6xl max-md:mt-10">
           <div className="flex gap-5 max-md:flex-col max-md:gap-0">
@@ -181,8 +179,7 @@ export default function LandingPage() {
           </button>
         </div>
       </section>
-      <Footer />
-    </main >
+    </>
   );
 }
 

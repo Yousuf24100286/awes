@@ -34,6 +34,8 @@ export default async function RootLayout({
           <Toaster position='top-center' richColors />
           {children}
         </body>
+
+        <script defer src="https://cloud.umami.is/script.js" data-website-id="b9b3e225-6122-465e-a11a-86840f65e25e" />
       </html>
     </SessionProvider>
   )

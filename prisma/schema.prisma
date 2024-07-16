@@ -12,8 +12,17 @@ enum UserRole {
   USER
 }
 
+enum ApplicationStep {
+  STEP_1
+  STEP_2
+  STEP_3
+  STEP_4
+}
+
 model User {
-  id            String    @id @default(cuid())
+  id            String  @id @default(cuid())
+  applicationId String? @unique
+
   name          String?
   email         String?   @unique
   emailVerified DateTime?
@@ -21,6 +30,8 @@ model User {
   password      String?
   role          UserRole  @default(USER)
   accounts      Account[]
+
+  application Application? @relation(fields: [applicationId], references: [id])
 }
 
 model Account {
@@ -58,4 +69,71 @@ model PasswordResetToken {
   expires DateTime
 
   @@unique([email, token])
+}
+
+model Application {
+  id String @id @default(cuid())
+
+  applicationStep ApplicationStep @default(STEP_1)
+  feedback        String?
+
+  name                   String?
+  dateOfBirth            String?
+  phoneNumber            String?
+  email                  String?
+  emergencyContactName   String?
+  emergencyContactEmail  String?
+  emergencyContactNumber String?
+  nationalIdCard         String?
+  passport               String?
+  nursingLicense         String?
+  nursingDegree          String?
+  highSchoolDiploma      String?
+  highSchoolGrades       String?
+  curriculumVitae        String?
+
+  nationalId                   String?
+  passportPhoto                String?
+  passportId                   String?
+  nursingSchoolDiploma         String?
+  nursingSchoolTranscript      String?
+  nursingExperienceCertificate String?
+
+  toeflExamResult     String?
+  usNursingEvaluation String?
+  usCgfnsCertificate  String?
+  usVisaScreen        String?
+  usJobOffer          String?
+
+  usSocialSecurityCard String?
+  usGreenCard          String?
+  birthCertificate     String?
+  spouseDetails        SpouseDetail[]
+  childrenDetails      ChildrenDetail[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  User      User?
+}
+
+model SpouseDetail {
+  id                     String  @id @default(cuid())
+  applicationId          String
+  spouseDemographics     String?
+  spouseBirthCertificate String?
+  spousePassport         String?
+  spousePassportPhoto    String?
+  marriageCertificate    String?
+
+  application Application @relation(fields: [applicationId], references: [id])
+}
+
+model ChildrenDetail {
+  id                 String  @id @default(cuid())
+  applicationId      String
+  birthCertificate   String?
+  passportPhoto      String?
+  immunizationRecord String?
+
+  application Application @relation(fields: [applicationId], references: [id])
 }

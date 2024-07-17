@@ -10,24 +10,21 @@ import {
 import { Menu } from "lucide-react";
 import { LoginButton } from "@/components/auth/login-button";
 import { useCurrentRole } from "@/hooks/use-current-role";
-import { toast } from "sonner";
 
 export default function Navbar() {
   const role = useCurrentRole();
 
-  toast.info(`role: ${role === 'ADMIN' ? 'Admin' : 'User'}`);
-
   const callToAction = role === 'ADMIN' ? (
     <Button variant="brand" size="brand" asChild>
       <Link href='/static-analytics'>
-        Dashboard
+        Go to Dashboard
       </Link>
     </Button>
   ) :
     role === 'USER' ? (
       <Button variant="brand" size="brand" asChild>
         <Link href='/application'>
-          Application
+          Go to Dashboard
         </Link>
       </Button>
     )

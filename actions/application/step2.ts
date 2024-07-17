@@ -2,6 +2,11 @@
 
 import * as z from 'zod';
 import { Step2Schema } from '@/schemas/application';
+import { currentUser } from '@/lib/auth';
+import {
+  getOrCreateApplication,
+  handleStep2,
+} from '@/data/application';
 
 export const step2 = async (
   values: z.infer<typeof Step2Schema>
@@ -12,7 +17,15 @@ export const step2 = async (
     return { error: 'Invalid fields!' };
   }
 
-  console.log(validatedFields.data);
+  const user = await currentUser();
+
+  if (!user) {
+    return { error: 'Not authenticated!' };
+  }
+
+  const application = await getOrCreateApplication(user.id);
+
+  await handleStep2(application.id, validatedFields.data);
 
   return { success: 'Successfully updated step2!' };
 };

@@ -8,9 +8,19 @@ import {
 import { z } from 'zod';
 import { ApplicationStep } from '@prisma/client';
 
-export async function getOrCreateApplication(
+export const getApplicationByApplicationId = async (
+  applicationId: string
+) => {
+  const application = await db.application.findUnique({
+    where: { id: applicationId },
+  });
+
+  return application;
+};
+
+export const getOrCreateApplication = async (
   userId: string
-) {
+) => {
   let application = await db.application.findUnique({
     where: { userId: userId },
   });
@@ -24,32 +34,32 @@ export async function getOrCreateApplication(
   }
 
   return application;
-}
+};
 
-export async function handleStep1(
+export const handleStep1 = async (
   applicationId: string,
   step1Data: z.infer<typeof Step1Schema>
-) {
+) => {
   return await db.application.update({
     where: { id: applicationId },
     data: step1Data,
   });
-}
+};
 
-export async function handleStep2(
+export const handleStep2 = async (
   applicationId: string,
   step2Data: z.infer<typeof Step2Schema>
-) {
+) => {
   return await db.application.update({
     where: { id: applicationId },
     data: step2Data,
   });
-}
+};
 
-export async function handleStep3(
+export const handleStep3 = async (
   applicationId: string,
   step3Data: z.infer<typeof Step3Schema>
-) {
+) => {
   return await db.application.update({
     where: { id: applicationId },
     data: {
@@ -62,22 +72,22 @@ export async function handleStep3(
       },
     },
   });
-}
+};
 
-export async function handleAdminDocuments(
+export const handleAdminDocuments = async (
   applicationId: string,
   adminDocumentsData: z.infer<typeof AdminDocumentsSchema>
-) {
+) => {
   return await db.application.update({
     where: { id: applicationId },
     data: adminDocumentsData,
   });
-}
+};
 
-export async function addFeedback(
+export const addFeedback = async (
   applicationId: string,
   feedback: string
-) {
+) => {
   const feedbackData = {
     feedback,
   };
@@ -85,11 +95,11 @@ export async function addFeedback(
     where: { id: applicationId },
     data: feedbackData,
   });
-}
+};
 
-export async function updateApplicationStep(
+export const updateApplicationStep = async (
   applicationId: string
-) {
+) => {
   const application = await db.application.findUnique({
     where: { id: applicationId },
   });
@@ -112,4 +122,4 @@ export async function updateApplicationStep(
       applicationStep: nextStep,
     },
   });
-}
+};

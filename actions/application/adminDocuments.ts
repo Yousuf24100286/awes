@@ -2,9 +2,16 @@
 
 import * as z from 'zod';
 import { AdminDocumentsSchema } from '@/schemas/application';
+import { currentUser } from '@/lib/auth';
+import { UserRole } from '@prisma/client';
+import {
+  getApplicationByApplicationId,
+  handleAdminDocuments,
+} from '@/data/application';
 
 export const adminDocuments = async (
-  values: z.infer<typeof AdminDocumentsSchema>
+  values: z.infer<typeof AdminDocumentsSchema>,
+  applicationId: string
 ) => {
   const validatedFields =
     AdminDocumentsSchema.safeParse(values);
@@ -13,7 +20,28 @@ export const adminDocuments = async (
     return { error: 'Invalid fields!' };
   }
 
-  console.log(validatedFields.data);
+  const user = await currentUser();
+
+  if (!user) {
+    return { error: 'Not authenticated!' };
+  }
+
+  if (user.role !== UserRole.ADMIN) {
+    return { error: 'Not authorized!' };
+  }
+
+  const application = await getApplicationByApplicationId(
+    applicationId
+  );
+
+  if (!application) {
+    return { error: 'Application not found!' };
+  }
+
+  await handleAdminDocuments(
+    application.id,
+    validatedFields.data
+  );
 
   return {
     success: 'Successfully updated admin documents!',

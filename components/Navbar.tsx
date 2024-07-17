@@ -1,3 +1,5 @@
+'use client';
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
@@ -7,8 +9,36 @@ import {
 } from "@/components/ui/sheet"
 import { Menu } from "lucide-react";
 import { LoginButton } from "@/components/auth/login-button";
+import { useCurrentRole } from "@/hooks/use-current-role";
+import { toast } from "sonner";
 
 export default function Navbar() {
+  const role = useCurrentRole();
+
+  toast.info(`role: ${role === 'ADMIN' ? 'Admin' : 'User'}`);
+
+  const callToAction = role === 'ADMIN' ? (
+    <Button variant="brand" size="brand" asChild>
+      <Link href='/static-analytics'>
+        Dashboard
+      </Link>
+    </Button>
+  ) :
+    role === 'USER' ? (
+      <Button variant="brand" size="brand" asChild>
+        <Link href='/application'>
+          Application
+        </Link>
+      </Button>
+    )
+      : (
+        <LoginButton asChild>
+          <Button variant="brand" size="brand">
+            Apply now
+          </Button>
+        </LoginButton>
+      );
+
   return (
     <header className="bg-white w-full shadow">
       <div className="flex items-center justify-between gap-5 max-w-6xl px-5 w-full mx-auto h-[75px]">
@@ -26,11 +56,7 @@ export default function Navbar() {
             <Link href='/services' className='hover:text-dark-marron'>Services</Link>
             <Link href='/about-us' className='hover:text-dark-marron'>About us</Link>
           </nav>
-          <LoginButton asChild>
-            <Button variant="brand" size="brand">
-              Apply now
-            </Button>
-          </LoginButton>
+          {callToAction}
         </div>
         <Sheet>
           <SheetTrigger className="block sm:hidden">
@@ -51,11 +77,7 @@ export default function Navbar() {
                 <Link href='/services' className='hover:text-dark-marron'>Services</Link>
                 <Link href='/about-us' className='hover:text-dark-marron'>About us</Link>
               </nav>
-              <LoginButton asChild>
-                <Button variant="brand" size="brand">
-                  Apply now
-                </Button>
-              </LoginButton>
+              {callToAction}
             </div>
           </SheetContent>
         </Sheet>

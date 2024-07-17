@@ -19,9 +19,7 @@ enum ApplicationStep {
 }
 
 model User {
-  id            String  @id @default(cuid())
-  applicationId String? @unique
-
+  id            String    @id @default(cuid())
   name          String?
   email         String?   @unique
   emailVerified DateTime?
@@ -30,7 +28,7 @@ model User {
   role          UserRole  @default(USER)
   accounts      Account[]
 
-  application Application? @relation(fields: [applicationId], references: [id])
+  application Application?
 }
 
 model Account {
@@ -116,7 +114,9 @@ model Application {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  User      User?
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
 }
 
 model SpouseDetail {

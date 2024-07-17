@@ -1,12 +1,13 @@
 'use server';
 
 import * as z from 'zod';
-import { DocumentsSchema } from '@/schemas/application';
+import { AdminDocumentsSchema } from '@/schemas/application';
 
 export const adminDocuments = async (
-  values: z.infer<typeof DocumentsSchema>
+  values: z.infer<typeof AdminDocumentsSchema>
 ) => {
-  const validatedFields = DocumentsSchema.safeParse(values);
+  const validatedFields =
+    AdminDocumentsSchema.safeParse(values);
 
   if (!validatedFields.success) {
     return { error: 'Invalid fields!' };

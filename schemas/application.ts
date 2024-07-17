@@ -52,7 +52,7 @@ export const Step3Schema = z.object({
     .optional(),
 });
 
-export const DocumentsSchema = z.object({
+export const AdminDocumentsSchema = z.object({
   toeflExamResult: z.string().optional(),
   usNursingEvaluation: z.string().optional(),
   usCgfnsCertificate: z.string().optional(),

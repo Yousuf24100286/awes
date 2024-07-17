@@ -29,13 +29,12 @@ export default async function RootLayout({
   return (
     <SessionProvider session={session}>
       <html lang="en">
-        <body className={inter.className}>
+        <body>
           <NextSSRPlugin routerConfig={extractRouterConfig(ourFileRouter)} />
           <Toaster position='top-center' richColors />
           {children}
+          <script defer src="https://cloud.umami.is/script.js" data-website-id="b9b3e225-6122-465e-a11a-86840f65e25e" />
         </body>
-
-        <script defer src="https://cloud.umami.is/script.js" data-website-id="b9b3e225-6122-465e-a11a-86840f65e25e" />
       </html>
     </SessionProvider>
   )

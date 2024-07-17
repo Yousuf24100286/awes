@@ -104,6 +104,10 @@ export const updateApplicationStep = async (
     where: { id: applicationId },
   });
 
+  if (!application) {
+    return;
+  }
+
   let nextStep = application.applicationStep;
   switch (application.applicationStep) {
     case ApplicationStep.STEP_1:

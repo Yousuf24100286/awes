@@ -105,7 +105,7 @@ export const updateApplicationStep = async (
   });
 
   if (!application) {
-    return;
+    return -1;
   }
 
   let nextStep = application.applicationStep;
@@ -117,13 +117,15 @@ export const updateApplicationStep = async (
       nextStep = ApplicationStep.STEP_3;
       break;
     default:
-      break;
+      return 0;
   }
 
-  return await db.application.update({
+  await db.application.update({
     where: { id: application.id },
     data: {
       applicationStep: nextStep,
     },
   });
+
+  return 1;
 };

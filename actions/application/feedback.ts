@@ -6,7 +6,7 @@ import {
   getApplicationByApplicationId,
 } from '@/data/application';
 
-export const feedback = async (
+export const feedbackAction = async (
   applicationId: string,
   feedback: string
 ) => {

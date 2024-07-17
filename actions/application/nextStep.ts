@@ -17,15 +17,17 @@ export const nextStep = async (applicationId: string) => {
     return { error: 'Not authorized!' };
   }
 
-  const application = await getApplicationByApplicationId(
-    applicationId
-  );
+  const res = await updateApplicationStep(applicationId);
 
-  if (!application) {
+  if (res === -1) {
     return { error: 'Application not found!' };
   }
 
-  await updateApplicationStep(application.id);
+  if (res === 0) {
+    return {
+      success: 'Application is already in the final step!',
+    };
+  }
 
   return {
     success: 'Successfully updated step!',

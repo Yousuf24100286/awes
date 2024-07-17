@@ -1,56 +1,13 @@
 import { Button } from '@/components/ui/button';
-import { toast } from 'sonner';
-import {
-  Dialog,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-  DialogClose,
-} from '@/components/ui/dialog';
-import { Label } from '@/components/ui/label';
 import { getCompleteUser } from '@/data/user';
-import { Textarea } from '@/components/ui/textarea';
 import { Application, ChildrenDetail, SpouseDetail } from '@prisma/client';
 import { z } from 'zod';
 import { AdminDocumentsSchema, Step1Schema, Step2Schema, Step3Schema } from '@/schemas/application';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
+import Feedback from './_components/Feedback';
+import NextStep from './_components/NextStep';
 
-const AddFeedback = () => {
-  return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button>Add Feedback</Button>
-      </DialogTrigger>
-      <DialogContent className="flex flex-col items-start h-[250px] w-[400px] justify-between">
-        <DialogHeader>
-          <DialogTitle>
-            Provide Feedback
-          </DialogTitle>
-        </DialogHeader>
-        <div className="flex flex-col gap-2">
-          <Label>Feedback</Label>
-          <Textarea
-            className="w-full h-20"
-            placeholder="Type your feedback here..."
-          />
-        </div>
-        <DialogFooter>
-          <Button type="submit">
-            Add
-          </Button>
-          <DialogClose asChild>
-            <Button type="button" variant="outline">
-              Close
-            </Button>
-          </DialogClose>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  )
-}
 
 const nullToUndefined = (obj: any) => {
   const newObj: any = {};
@@ -140,7 +97,6 @@ const FormattedField = ({ label, value, link }: { label: string, value?: string,
       ) : null
   )
 }
-
 
 const Step1 = ({ data }: { data: z.infer<typeof Step1Schema> }) => {
   return (
@@ -244,7 +200,6 @@ const AdminDocuments = ({ data }: { data: z.infer<typeof AdminDocumentsSchema> }
   )
 }
 
-
 const ApplicationPage = async ({ params }: { params: { id: string } }) => {
   const user = await getCompleteUser(params.id);
 
@@ -269,12 +224,21 @@ const ApplicationPage = async ({ params }: { params: { id: string } }) => {
   return (
     <main className="flex flex-col items-center justify-center gap-8 flex-1 py-4">
       <Card className="grid flex-1 max-w-2xl w-full">
-        <CardHeader className="flex flex-row justify-between items-center">
-          <div>
-            <CardTitle>Name: {user.name}</CardTitle>
-            <CardDescription>Application ID: {user.application.id}</CardDescription>
+        <CardHeader className='grid gap-2'>
+          <div className="flex flex-row justify-between items-center">
+            <div>
+              <CardTitle><span className='font-normal text-base'>Name: </span>{user.name}</CardTitle>
+              <CardTitle><span className='font-normal text-base'>Application ID: </span>{user.application.id}</CardTitle>
+              <CardTitle><span className='font-normal text-base'>Steps allowed: </span>{user.application.applicationStep}</CardTitle>
+            </div>
+            <div className='grid gap-2'>
+              <Feedback applicationId={user.application.id} />
+              <NextStep applicationId={user.application.id} />
+            </div>
           </div>
-          <AddFeedback />
+          <CardDescription>
+            <span className='font-normal'>Feedback given: </span>{user.application.feedback}
+          </CardDescription>
         </CardHeader>
         <Separator />
         <CardContent className='grid gap-6 py-6'>

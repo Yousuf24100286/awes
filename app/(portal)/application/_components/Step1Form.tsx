@@ -26,6 +26,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Separator } from "@/components/ui/separator";
 import { FileInput } from "@/components/FileInput";
 import { step1 } from "@/actions/application/step1";
+import { useRouter } from "next/navigation";
 
 const StepHeader = ({ step }: { step: number }) => {
   return (
@@ -62,6 +63,7 @@ const StepHeader = ({ step }: { step: number }) => {
 
 export const Step1Form = () => {
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof Step1Schema>>({
     resolver: zodResolver(Step1Schema),
@@ -74,6 +76,9 @@ export const Step1Form = () => {
         .then((data) => {
           toast.error(data.error);
           toast.success(data.success);
+        })
+        .finally(() => {
+          router.push("/application");
         });
     });
   };

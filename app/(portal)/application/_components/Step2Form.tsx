@@ -14,6 +14,7 @@ import { toast } from "sonner";
 import { Card, CardContent } from "@/components/ui/card";
 import { FileInput } from "@/components/FileInput";
 import { step2 } from "@/actions/application/step2";
+import { useRouter } from "next/navigation";
 
 const StepHeader = ({ step }: { step: number }) => {
   return (
@@ -50,6 +51,7 @@ const StepHeader = ({ step }: { step: number }) => {
 
 export const Step2Form = () => {
   const [isPending, startTransition] = useTransition();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof Step2Schema>>({
     resolver: zodResolver(Step2Schema),
@@ -62,6 +64,9 @@ export const Step2Form = () => {
         .then((data) => {
           toast.error(data.error);
           toast.success(data.success);
+        })
+        .finally(() => {
+          router.push("/application");
         });
     });
   };

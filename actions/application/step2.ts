@@ -7,6 +7,7 @@ import {
   getOrCreateApplication,
   handleStep2,
 } from '@/data/application';
+import { UserRole } from '@prisma/client';
 
 export const step2 = async (
   values: z.infer<typeof Step2Schema>
@@ -21,6 +22,10 @@ export const step2 = async (
 
   if (!user) {
     return { error: 'Not authenticated!' };
+  }
+
+  if (user.role !== UserRole.USER) {
+    return { error: 'Not authorized!' };
   }
 
   const application = await getOrCreateApplication(user.id);

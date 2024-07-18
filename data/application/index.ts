@@ -1,3 +1,5 @@
+'use server';
+
 import { db } from '@/lib/db';
 import {
   Step1Schema,
@@ -144,4 +146,21 @@ export const getApplicationStep = async () => {
   });
 
   return applicationStep;
+};
+
+export const getUserApplication = async () => {
+  const user = await currentUser();
+
+  if (!user) {
+    return null;
+  }
+
+  const userApplication = await db.user.findUnique({
+    where: { id: user.id },
+    include: {
+      application: true,
+    },
+  });
+
+  return userApplication;
 };

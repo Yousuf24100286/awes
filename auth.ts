@@ -1,10 +1,10 @@
 import NextAuth from 'next-auth';
-import { UserRole } from '@prisma/client';
+import { Application, UserRole } from '@prisma/client';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 
 import { db } from '@/lib/db';
 import authConfig from '@/auth.config';
-import { getUserById } from '@/data/user';
+import { getCompleteUser, getUserById } from '@/data/user';
 import { getAccountByUserId } from '@/data/account';
 
 export const {
@@ -50,6 +50,8 @@ export const {
       if (session.user) {
         session.user.name = token.name;
         session.user.email = token.email;
+        session.user.application =
+          token.application as Application;
       }
 
       return session;
@@ -57,18 +59,14 @@ export const {
     async jwt({ token }) {
       if (!token.sub) return token;
 
-      const existingUser = await getUserById(token.sub);
+      const existingUser = await getCompleteUser(token.sub);
 
       if (!existingUser) return token;
 
-      const existingAccount = await getAccountByUserId(
-        existingUser.id
-      );
-
-      token.isOAuth = !!existingAccount;
       token.name = existingUser.name;
       token.email = existingUser.email;
       token.role = existingUser.role;
+      token.application = existingUser.application;
 
       return token;
     },

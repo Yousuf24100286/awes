@@ -7,6 +7,7 @@ import {
 } from '@/schemas/application';
 import { z } from 'zod';
 import { ApplicationStep } from '@prisma/client';
+import { currentUser } from '@/lib/auth';
 
 export const getApplicationByApplicationId = async (
   applicationId: string
@@ -128,4 +129,19 @@ export const updateApplicationStep = async (
   });
 
   return 1;
+};
+
+export const getApplicationStep = async () => {
+  const user = await currentUser();
+
+  if (!user) {
+    return null;
+  }
+
+  const applicationStep = await db.application.findUnique({
+    where: { userId: user.id },
+    select: { applicationStep: true },
+  });
+
+  return applicationStep;
 };

@@ -1,4 +1,5 @@
 import UserRoute from "@/components/auth/user-route"
+import Sidebar from "./_components/Sidebar"
 import Navbar from "./_components/Navbar"
 
 const layout = ({
@@ -7,15 +8,16 @@ const layout = ({
   children: React.ReactNode
 }) => {
   return (
-    <>
+    <main className="min-h-screen">
       <UserRoute />
-      <main className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
-        <Navbar />
-        <div className="flex flex-col max-h-screen overflow-y-auto">
+      <Navbar />
+      <div className="flex">
+        <Sidebar />
+        <div className="flex items-center justify-center grow p-4 bg-[#FEF4DC]">
           {children}
         </div>
-      </main>
-    </>
+      </div>
+    </main >
   )
 }
 

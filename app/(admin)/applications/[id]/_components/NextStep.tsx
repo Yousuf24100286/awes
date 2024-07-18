@@ -32,7 +32,7 @@ const NextStep = ({ applicationId }: { applicationId: string }) => {
 
   return (
     <Button
-      variant='outline'
+      variant='secondary'
       disabled={isPending}
       onClick={handleNextStep}
     >

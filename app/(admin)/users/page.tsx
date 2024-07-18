@@ -46,23 +46,24 @@ const UsersPage = async () => {
                 </CardHeader>
                 <CardContent className="p-0 h-auto"></CardContent>
                 <CardFooter className="flex flex-col py-0 h-auto w-48 gap-1">
-                  <Button
-                    asChild
-                  >
-                    <Link href={`/applications/${user.id}`}>
-                      View Application
-                    </Link>
-                  </Button>
-
-                  {/*
-                   <Button
-                         variant="destructive"
-                         disabled
-                       >
-                         No Application
-                       </Button> 
-                       */}
-
+                  {
+                    user.role === 'USER' ? (
+                      <Button
+                        asChild
+                      >
+                        <Link href={`/applications/${user.id}`}>
+                          View Application
+                        </Link>
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="destructive"
+                        disabled
+                      >
+                        No Application
+                      </Button>
+                    )
+                  }
                 </CardFooter>
               </Card>
             ))}

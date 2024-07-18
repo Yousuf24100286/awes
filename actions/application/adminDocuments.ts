@@ -10,8 +10,8 @@ import {
 } from '@/data/application';
 
 export const adminDocuments = async (
-  values: z.infer<typeof AdminDocumentsSchema>,
-  applicationId: string
+  applicationId: string,
+  values: z.infer<typeof AdminDocumentsSchema>
 ) => {
   const validatedFields =
     AdminDocumentsSchema.safeParse(values);

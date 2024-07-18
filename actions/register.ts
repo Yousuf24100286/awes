@@ -27,13 +27,20 @@ export const register = async (
     return { error: 'Email already in use!' };
   }
 
-  await db.user.create({
+  const user = await db.user.create({
     data: {
       name,
       email,
       password: hashedPassword,
     },
   });
+
+  // TODO: create application for at the time registration
+  // await db.application.create({
+  //   data: {
+  //     userId: user.id,
+  //   },
+  // });
 
   const verificationToken = await generateVerificationToken(
     email

@@ -48,7 +48,7 @@ const Feedback = ({ applicationId }: { applicationId: string }) => {
   return (
     <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
       <DialogTrigger asChild>
-        <Button>Add Feedback</Button>
+        <Button>Provide Feedback</Button>
       </DialogTrigger>
       <DialogContent className="flex flex-col h-[250px] w-[400px] justify-between">
         <DialogHeader>

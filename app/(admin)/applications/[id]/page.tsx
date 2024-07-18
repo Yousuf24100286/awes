@@ -7,6 +7,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Separator } from '@/components/ui/separator';
 import Feedback from './_components/Feedback';
 import NextStep from './_components/NextStep';
+import AdminDocumentsUpload from './_components/AdminDocumentsUpload';
 
 
 const nullToUndefined = (obj: any) => {
@@ -75,7 +76,7 @@ const FormattedField = ({ label, value, link }: { label: string, value?: string,
     value ?
       (
         <div className='flex items-center justify-between'>
-          <strong>{label}: </strong>
+          <strong className='font-semibold'>{label}: </strong>
           {link
             ?
             <Button
@@ -231,9 +232,10 @@ const ApplicationPage = async ({ params }: { params: { id: string } }) => {
               <CardTitle><span className='font-normal text-base'>Application ID: </span>{user.application.id}</CardTitle>
               <CardTitle><span className='font-normal text-base'>Steps allowed: </span>{user.application.applicationStep}</CardTitle>
             </div>
-            <div className='grid gap-2'>
+            <div className='grid gap-1'>
               <Feedback applicationId={user.application.id} />
               <NextStep applicationId={user.application.id} />
+              <AdminDocumentsUpload applicationId={user.application.id} />
             </div>
           </div>
           <CardDescription>

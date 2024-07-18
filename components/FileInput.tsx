@@ -53,14 +53,20 @@ export function FileInput({ id, label, name }: FileInputProps) {
 
   const [fileName, setFileName] = useState(name);
 
+  const [disable, setDisable] = useState(false);
+
   const { startUpload, isUploading, permittedFileInfo } = useUploadThing(
     "imageUploader",
     {
+      onUploadBegin: () => {
+        setDisable(true);
+      },
       onClientUploadComplete: (files) => {
         setFileName(files[0].name);
         form.setValue(id, files[0].url);
         console.log("url: ", files[0].url);
         toast.success("Upload Completed!");
+        setDisable(false);
       },
       onUploadError: (error: Error) => {
         toast.error(`Upload failed! ${error.message}`);
@@ -80,7 +86,7 @@ export function FileInput({ id, label, name }: FileInputProps) {
       <Label className={cn(buttonVariants({
         variant: "outline",
         size: "lg"
-      }), 'w-1/2')}>
+      }), '')}>
         <Input
           className="sr-only"
           type="file"
@@ -91,20 +97,20 @@ export function FileInput({ id, label, name }: FileInputProps) {
             if (!e.target.files) return;
             void startUpload(Array.from(e.target.files));
           }}
+          disabled={disable}
         />
         <span>
           {isUploading ? <Spinner /> : fileName ? 'Update File' : 'Choose File'}
         </span>
       </Label>
-      {fileName ?
-        <span>
-          {fileName}
-        </span>
-        : null
-      }
-      <p className="text-xs leading-5 text-gray-600">
-        {allowedContentTextLabelGenerator(permittedFileInfo?.config)}
-      </p>
+      <div>
+        <p className="text-xs leading-5 text-gray-600">
+          {fileName ?
+            fileName :
+            allowedContentTextLabelGenerator(permittedFileInfo?.config)
+          }
+        </p>
+      </div>
     </div>
   );
 }

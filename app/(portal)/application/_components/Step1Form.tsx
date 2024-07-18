@@ -1,7 +1,7 @@
 "use client";
 
 import * as z from "zod";
-import { useState, useTransition } from "react";
+import { useTransition } from "react";
 import { useForm, useFormContext } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -15,7 +15,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
@@ -24,7 +24,7 @@ import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover
 import { format, parse } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import { Separator } from "@/components/ui/separator";
-import { FileInput } from "./FileInput";
+import { FileInput } from "@/components/FileInput";
 import { step1 } from "@/actions/application/step1";
 
 export const Step1Form = () => {

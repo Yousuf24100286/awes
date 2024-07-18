@@ -30,7 +30,8 @@ const Navigation = () => {
         <Button
           key={index}
           asChild
-          variant={pathname === item.href ? 'default' : 'ghost'}
+          // TODO: fix the variant
+          variant={item.href === '/static-analytics' && pathname === '/static-analytics' ? 'default' : item.href !== '/static-analytics' && pathname !== '/static-analytics' ? 'default' : 'ghost'}
         >
           <Link
             href={item.href}
@@ -59,7 +60,6 @@ const Navbar = () => {
                 <Image
                   src="/logo.png"
                   alt="AWES logo"
-                  // className="shrink-0 max-w-full aspect-[3.45] w-[150px] sm:w-[170px] md:w-[207px]"
                   width={150}
                   height={43}
                 />
@@ -90,7 +90,6 @@ const Navbar = () => {
               <Image
                 src="/logo.png"
                 alt="AWES logo"
-                // className="shrink-0 max-w-full aspect-[3.45] w-[150px] sm:w-[170px] md:w-[207px]"
                 width={150}
                 height={43}
               />

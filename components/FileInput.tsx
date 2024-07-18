@@ -62,11 +62,10 @@ export function FileInput({ id, label, name }: FileInputProps) {
         setDisable(true);
       },
       onClientUploadComplete: (files) => {
-        setFileName(files[0].name);
-        form.setValue(id, files[0].url);
-        console.log("url: ", files[0].url);
+        const { name, url } = files[0];
+        setFileName(name);
+        form.setValue(id, url);
         toast.success("Upload Completed!");
-        setDisable(false);
       },
       onUploadError: (error: Error) => {
         toast.error(`Upload failed! ${error.message}`);
@@ -80,13 +79,15 @@ export function FileInput({ id, label, name }: FileInputProps) {
 
   return (
     <div className="flex flex-col gap-1">
-      <Label htmlFor={id}>
+      <Label htmlFor={disable ? "not-clickable" : id}>
         {label}
       </Label>
       <Label className={cn(buttonVariants({
         variant: "outline",
         size: "lg"
-      }), '')}>
+      }), '')}
+        htmlFor={disable ? "not-clickable" : id}
+      >
         <Input
           className="sr-only"
           type="file"

@@ -55,15 +55,32 @@ export const Step2Form = () => {
 
   const form = useForm<z.infer<typeof Step2Schema>>({
     resolver: zodResolver(Step2Schema),
+    defaultValues: {
+      nationalId: '',
+      passportPhoto: '',
+      passportId: '',
+      nursingSchoolDiploma: '',
+      nursingSchoolTranscript: '',
+      nursingExperienceCertificate: '',
+    }
   });
 
 
   const onSubmit = (values: z.infer<typeof Step2Schema>) => {
+    toast.info("Uploading documents...");
+    console.log('values', values)
+
     startTransition(() => {
       step2(values)
         .then((data) => {
-          toast.error(data.error);
-          toast.success(data.success);
+          if (data.success)
+            toast.success(data.success);
+          if (data.error)
+            toast.error(data.error);
+        })
+        .catch((error) => {
+          toast.error(error.message);
+          console.error(error);
         })
         .finally(() => {
           router.push("/application");
@@ -90,6 +107,7 @@ export const Step2Form = () => {
             </div>
             <div className="flex gap-2 self-end">
               <Button
+                onClick={() => router.push("/application")}
                 variant='outline'
                 className="w-48"
               >

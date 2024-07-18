@@ -42,10 +42,11 @@ const StepHeader = async () => {
                 <Button
                   variant='ghost'
                   className="text-white font-bold text-xl"
+                  disabled={s !== steps}
                 >
                   <Link href={`/application/step-${s}`}
                   >
-                    Apply
+                    {s < steps ? 'Completed' : 'In Progress'}
                   </Link>
                 </Button>
               </div>

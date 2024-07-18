@@ -57,15 +57,26 @@ export const Step3Form = () => {
 
   const form = useForm<z.infer<typeof Step3Schema>>({
     resolver: zodResolver(Step3Schema),
+    defaultValues: {
+      usSocialSecurityCard: "",
+      usGreenCard: "",
+      birthCertificate: "",
+      spouseDetails: [],
+      childrenDetails: [],
+    }
   });
 
 
   const onSubmit = (values: z.infer<typeof Step3Schema>) => {
+    toast.info("Uploading documents...");
+    console.log('values', values)
     startTransition(() => {
       step3(values)
         .then((data) => {
-          toast.error(data.error);
-          toast.success(data.success);
+          if (data.success)
+            toast.success(data.success);
+          if (data.error)
+            toast.error(data.error);
         })
         .catch((error) => {
           console.error("error", error);
@@ -148,12 +159,18 @@ function SpouseDetails() {
         type="button"
         variant='link'
         className="flex items-center gap-2 text-[#19615C] w-max"
-        onClick={() => append({})}
+        onClick={() => append({
+          spouseDemographics: "",
+          spouseBirthCertificate: "",
+          spousePassport: "",
+          spousePassportPhoto: "",
+          marriageCertificate: "",
+        })}
       >
         <PlusCircle />
         Add Spouse Details
       </Button>
-    </div>
+    </div >
   )
 }
 
@@ -187,7 +204,11 @@ function ChildrenDetails() {
         type="button"
         variant='link'
         className="flex items-center gap-2 text-[#19615C] w-max"
-        onClick={() => append({})}
+        onClick={() => append({
+          birthCertificate: "",
+          passportPhoto: "",
+          immunizationRecord: "",
+        })}
       >
         <PlusCircle />
         Add Children Details

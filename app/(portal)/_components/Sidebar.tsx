@@ -27,7 +27,7 @@ const Navigation = () => {
           key={index}
           asChild
           className='font-medium'
-          variant={item.href === pathname ? 'brand' : 'ghost'}
+          variant={item.href === '/documents' && pathname === '/documents' ? 'default' : item.href !== '/documents' && pathname !== '/documents' ? 'default' : 'ghost'}
         >
           <Link
             href={item.href}

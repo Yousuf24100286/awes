@@ -67,15 +67,36 @@ export const Step1Form = () => {
 
   const form = useForm<z.infer<typeof Step1Schema>>({
     resolver: zodResolver(Step1Schema),
+    defaultValues: {
+      name: '',
+      dateOfBirth: '',
+      phoneNumber: '',
+      email: '',
+      emergencyContactName: '',
+      emergencyContactEmail: '',
+      emergencyContactNumber: '',
+      nationalIdCard: '',
+      passport: '',
+      nursingLicense: '',
+      nursingDegree: '',
+      highSchoolDiploma: '',
+      highSchoolGrades: '',
+      curriculumVitae: '',
+    }
   });
 
 
   const onSubmit = (values: z.infer<typeof Step1Schema>) => {
+    toast.info("Uploading documents...");
+    console.log('values', values)
+
     startTransition(() => {
       step1(values)
         .then((data) => {
-          toast.error(data.error);
-          toast.success(data.success);
+          if (data.success)
+            toast.success(data.success);
+          if (data.error)
+            toast.error(data.error);
         })
         .finally(() => {
           router.push("/application");

@@ -3,7 +3,7 @@
 import { useCurrentRole } from "@/hooks/use-current-role";
 import { useRouter } from "next/navigation";
 
-const AdminRoute = () => {
+const UserRoute = () => {
   const role = useCurrentRole();
   const router = useRouter();
 
@@ -15,4 +15,4 @@ const AdminRoute = () => {
   return null;
 }
 
-export default AdminRoute;
+export default UserRoute;

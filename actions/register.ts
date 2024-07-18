@@ -35,12 +35,11 @@ export const register = async (
     },
   });
 
-  // TODO: create application for at the time registration
-  // await db.application.create({
-  //   data: {
-  //     userId: user.id,
-  //   },
-  // });
+  await db.application.create({
+    data: {
+      userId: user.id,
+    },
+  });
 
   const verificationToken = await generateVerificationToken(
     email

@@ -15,6 +15,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { FileInput } from "@/components/FileInput";
 import { step2 } from "@/actions/application/step2";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 const StepHeader = ({ step }: { step: number }) => {
   return (
@@ -52,16 +54,17 @@ const StepHeader = ({ step }: { step: number }) => {
 export const Step2Form = () => {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+  const user = useCurrentUser();
 
   const form = useForm<z.infer<typeof Step2Schema>>({
     resolver: zodResolver(Step2Schema),
     defaultValues: {
-      nationalId: '',
-      passportPhoto: '',
-      passportId: '',
-      nursingSchoolDiploma: '',
-      nursingSchoolTranscript: '',
-      nursingExperienceCertificate: '',
+      nationalId: user?.application?.nationalId || '',
+      passportPhoto: user?.application?.passportPhoto || '',
+      passportId: user?.application?.passportId || '',
+      nursingSchoolDiploma: user?.application?.nursingSchoolDiploma || '',
+      nursingSchoolTranscript: user?.application?.nursingSchoolTranscript || '',
+      nursingExperienceCertificate: user?.application?.nursingExperienceCertificate || '',
     }
   });
 
@@ -107,11 +110,13 @@ export const Step2Form = () => {
             </div>
             <div className="flex gap-2 self-end">
               <Button
-                onClick={() => router.push("/application")}
                 variant='outline'
                 className="w-48"
+                asChild
               >
-                Cancel
+                <Link href="/application/step-1">
+                  Back
+                </Link>
               </Button>
               <Button
                 disabled={isPending}

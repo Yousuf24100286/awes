@@ -76,7 +76,7 @@ model Application {
 
   // STEP 1
   name                   String?
-  dateOfBirth            String?
+  dateOfBirth            DateTime?
   phoneNumber            String?
   email                  String?
   emergencyContactName   String?
@@ -115,7 +115,7 @@ model Application {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  user   User   @relation(fields: [userId], references: [id])
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String @unique
 }
 
@@ -128,7 +128,7 @@ model SpouseDetail {
   spousePassportPhoto    String?
   marriageCertificate    String?
 
-  application Application @relation(fields: [applicationId], references: [id])
+  application Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
 }
 
 model ChildrenDetail {
@@ -138,5 +138,5 @@ model ChildrenDetail {
   passportPhoto      String?
   immunizationRecord String?
 
-  application Application @relation(fields: [applicationId], references: [id])
+  application Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
 }

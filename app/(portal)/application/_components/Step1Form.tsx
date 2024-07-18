@@ -27,6 +27,8 @@ import { Separator } from "@/components/ui/separator";
 import { FileInput } from "@/components/FileInput";
 import { step1 } from "@/actions/application/step1";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 const StepHeader = ({ step }: { step: number }) => {
   return (
@@ -65,23 +67,25 @@ export const Step1Form = () => {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
+  const user = useCurrentUser();
+
   const form = useForm<z.infer<typeof Step1Schema>>({
     resolver: zodResolver(Step1Schema),
     defaultValues: {
-      name: '',
-      dateOfBirth: '',
-      phoneNumber: '',
-      email: '',
-      emergencyContactName: '',
-      emergencyContactEmail: '',
-      emergencyContactNumber: '',
-      nationalIdCard: '',
-      passport: '',
-      nursingLicense: '',
-      nursingDegree: '',
-      highSchoolDiploma: '',
-      highSchoolGrades: '',
-      curriculumVitae: '',
+      name: user?.application?.name || '',
+      dateOfBirth: user?.application?.dateOfBirth || new Date(),
+      phoneNumber: user?.application?.phoneNumber || '',
+      email: user?.application?.email || '',
+      emergencyContactName: user?.application?.emergencyContactName || '',
+      emergencyContactEmail: user?.application?.emergencyContactEmail || '',
+      emergencyContactNumber: user?.application?.emergencyContactNumber || '',
+      nationalIdCard: user?.application?.nationalIdCard || '',
+      passport: user?.application?.passport || '',
+      nursingLicense: user?.application?.nursingLicense || '',
+      nursingDegree: user?.application?.nursingDegree || '',
+      highSchoolDiploma: user?.application?.highSchoolDiploma || '',
+      highSchoolGrades: user?.application?.highSchoolGrades || '',
+      curriculumVitae: user?.application?.curriculumVitae || '',
     }
   });
 
@@ -124,8 +128,11 @@ export const Step1Form = () => {
               <Button
                 variant='outline'
                 className="w-48"
+                asChild
               >
-                Cancel
+                <Link href="/application">
+                  Back
+                </Link>
               </Button>
               <Button
                 disabled={isPending}
@@ -178,7 +185,7 @@ function Section1() {
                       )}
                     >
                       {field.value ? (
-                        format(parse(field.value, "yyyy-MM-dd", new Date()), "PPP")
+                        format(field.value, "PPP")
                       ) : (
                         <span>Pick a date</span>
                       )}
@@ -190,9 +197,11 @@ function Section1() {
                 <PopoverContent className="w-auto p-0" align="start">
                   <Calendar
                     mode="single"
-                    selected={field.value ? parse(field.value, "yyyy-MM-dd", new Date()) : undefined}
-                    onSelect={(date) => field.onChange(date ? format(date, "yyyy-MM-dd") : "")}
-                    disabled={(date) => date > new Date()}
+                    selected={field.value}
+                    onSelect={field.onChange}
+                    disabled={(date) =>
+                      date > new Date() || date < new Date("1900-01-01")
+                    }
                   />
                 </PopoverContent>
               </Popover>

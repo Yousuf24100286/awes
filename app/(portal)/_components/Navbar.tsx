@@ -11,7 +11,7 @@ import { usePathname } from 'next/navigation';
 
 const navigation = [
   {
-    name: 'Application',
+    name: 'My Application',
     href: '/application',
     show: true,
   },
@@ -52,7 +52,7 @@ const Navigation = () => {
 
 const Navbar = () => {
   return (
-    <div className="flex justify-between h-14 items-center px-4 lg:h-[60px] lg:px-6 shadow">
+    <div className="flex justify-between h-18 items-center px-4 lg:h-[60px] lg:px-6 shadow py-8">
       <Sheet>
         <SheetTrigger asChild>
           <Button className="shrink-0 md:hidden" size="icon" variant="outline">

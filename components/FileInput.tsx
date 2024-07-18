@@ -15,8 +15,6 @@ const capitalizeStart = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
 
-
-
 const INTERNAL_doFormatting = (config?: ExpandedRouteConfig): string => {
   if (!config) return "";
 
@@ -44,14 +42,14 @@ const allowedContentTextLabelGenerator = (
 interface FileInputProps {
   id: string;
   label: string;
-  name?: string;
+  required?: boolean;
 }
 
-export function FileInput({ id, label, name }: FileInputProps) {
+export function FileInput({ id, label, required }: FileInputProps) {
   const form = useFormContext();
   const fileRef = form.register(id);
 
-  const [fileName, setFileName] = useState(name);
+  const fileUrl = form.watch(id);
 
   const [disable, setDisable] = useState(false);
 
@@ -62,8 +60,7 @@ export function FileInput({ id, label, name }: FileInputProps) {
         setDisable(true);
       },
       onClientUploadComplete: (files) => {
-        const { name, url } = files[0];
-        setFileName(name);
+        const { url } = files[0];
         form.setValue(id, url);
         toast.success("Upload Completed!");
       },
@@ -81,6 +78,7 @@ export function FileInput({ id, label, name }: FileInputProps) {
     <div className="flex flex-col gap-1">
       <Label htmlFor={disable ? "not-clickable" : id}>
         {label}
+        {required && <span className="text-[#DC2626]">*</span>}
       </Label>
       <Label className={cn(buttonVariants({
         variant: "outline",
@@ -101,13 +99,20 @@ export function FileInput({ id, label, name }: FileInputProps) {
           disabled={disable}
         />
         <span>
-          {isUploading ? <Spinner /> : fileName ? 'Update File' : 'Choose File'}
+          {isUploading ? <Spinner /> : fileUrl ? 'Update File' : 'Choose File'}
         </span>
       </Label>
       <div>
         <p className="text-xs leading-5 text-gray-600">
-          {fileName ?
-            fileName :
+          {fileUrl ?
+            <a
+              href={fileUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="underline"
+            >
+              {fileUrl}
+            </a> :
             allowedContentTextLabelGenerator(permittedFileInfo?.config)
           }
         </p>

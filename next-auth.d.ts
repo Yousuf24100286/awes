@@ -1,9 +1,17 @@
-import { UserRole, Application } from '@prisma/client';
+import {
+  UserRole,
+  Application,
+  SpouseDetail,
+  ChildrenDetail,
+} from '@prisma/client';
 import NextAuth, { type DefaultSession } from 'next-auth';
 
 export type ExtendedUser = DefaultSession['user'] & {
   role: UserRole;
-  application?: Application;
+  application?: Application & {
+    spouseDetails: SpouseDetail[];
+    childrenDetails: ChildrenDetail[];
+  };
 };
 
 declare module 'next-auth' {

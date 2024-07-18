@@ -1,11 +1,15 @@
 import NextAuth from 'next-auth';
-import { Application, UserRole } from '@prisma/client';
+import {
+  UserRole,
+  Application,
+  ChildrenDetail,
+  SpouseDetail,
+} from '@prisma/client';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 
 import { db } from '@/lib/db';
 import authConfig from '@/auth.config';
 import { getCompleteUser, getUserById } from '@/data/user';
-import { getAccountByUserId } from '@/data/account';
 
 export const {
   handlers: { GET, POST },
@@ -51,7 +55,10 @@ export const {
         session.user.name = token.name;
         session.user.email = token.email;
         session.user.application =
-          token.application as Application;
+          token.application as Application & {
+            spouseDetails: SpouseDetail[];
+            childrenDetails: ChildrenDetail[];
+          };
       }
 
       return session;

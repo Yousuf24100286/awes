@@ -5,6 +5,7 @@ require('dotenv/config');
 const {
   PrismaClient,
   ApplicationStep,
+  UserRole,
 } = require('@prisma/client');
 const bcrypt = require('bcryptjs');
 const {
@@ -38,7 +39,7 @@ function getRandomUrl() {
 function getStep1Data() {
   return {
     name: 'Muhammad Hammad',
-    dateOfBirth: '2003-01-30',
+    dateOfBirth: new Date(),
     phoneNumber: '1234567890',
     email: 'hammadtariq838@gmail.com',
     emergencyContactName: 'Jane Doe',
@@ -228,8 +229,6 @@ async function main() {
   const email = 'hammadtariq838@gmail.com';
   const password = process.env.PASSWORD_HASH!;
   const hashedPassword = await bcrypt.hash(password, 10);
-  console.log('password', password);
-  console.log('hashedPassword', hashedPassword);
 
   /**
    * 1. Create user account
@@ -241,22 +240,8 @@ async function main() {
    * 7. Add feedback
    * 8. Update application step to next
    */
-
-  // Delete applications first to handle foreign key constraint
-  await db.application.deleteMany({
-    where: {
-      user: {
-        email,
-      },
-    },
-  });
-
   console.log(`Deleting user if exists: ${email}`);
-  await db.user.deleteMany({
-    where: {
-      email,
-    },
-  });
+  await db.user.deleteMany({});
 
   console.log(`Creating user: ${email}`);
   const user = await db.user.create({
@@ -265,6 +250,16 @@ async function main() {
       email,
       password: hashedPassword,
       emailVerified: new Date(),
+    },
+  });
+  console.log(`Creating admin user`);
+  await db.user.create({
+    data: {
+      name: 'Muhammad Hammad',
+      email: '24100267@lums.edu.pk',
+      password: hashedPassword,
+      emailVerified: new Date(),
+      role: 'ADMIN',
     },
   });
 

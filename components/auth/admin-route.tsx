@@ -1,13 +1,13 @@
 'use client';
 
-import { useCurrentRole } from "@/hooks/use-current-role";
+import { useCurrentUser } from "@/hooks/use-current-user";
 import { useRouter } from "next/navigation";
 
 const AdminRoute = () => {
-  const role = useCurrentRole();
+  const user = useCurrentUser();
   const router = useRouter();
 
-  if (role !== 'ADMIN') {
+  if (user && user.role !== 'ADMIN') {
     router.push('/unauthorized')
     return null;
   }

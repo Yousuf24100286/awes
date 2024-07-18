@@ -105,7 +105,7 @@ const Step1 = ({ data }: { data: z.infer<typeof Step1Schema> }) => {
       <h2 className='text-2xl font-bold text-center'>Step 1</h2>
       <div className="grid gap-2">
         <FormattedField label="Name" value={data.name} />
-        <FormattedField label="Date of Birth" value={data.dateOfBirth} />
+        <FormattedField label="Date of Birth" value={data.dateOfBirth ? JSON.stringify(data.dateOfBirth) : ''} />
         <FormattedField label="Phone Number" value={data.phoneNumber} />
         <FormattedField label="Email" value={data.email} />
         <FormattedField label="Emergency Contact Name" value={data.emergencyContactName} />

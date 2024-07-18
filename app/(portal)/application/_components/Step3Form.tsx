@@ -17,6 +17,8 @@ import { step3 } from "@/actions/application/step3";
 import { Separator } from "@/components/ui/separator";
 import { PlusCircle, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
 const StepHeader = ({ step }: { step: number }) => {
   return (
@@ -54,15 +56,26 @@ const StepHeader = ({ step }: { step: number }) => {
 export const Step3Form = () => {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
+  const user = useCurrentUser();
 
   const form = useForm<z.infer<typeof Step3Schema>>({
     resolver: zodResolver(Step3Schema),
     defaultValues: {
-      usSocialSecurityCard: "",
-      usGreenCard: "",
-      birthCertificate: "",
-      spouseDetails: [],
-      childrenDetails: [],
+      usSocialSecurityCard: user?.application?.usSocialSecurityCard || "",
+      usGreenCard: user?.application?.usGreenCard || "",
+      birthCertificate: user?.application?.birthCertificate || "",
+      spouseDetails: user?.application?.spouseDetails && user?.application?.spouseDetails.length ? user.application.spouseDetails.map((spouse) => ({
+        spouseDemographics: spouse.spouseDemographics || "",
+        spouseBirthCertificate: spouse.spouseBirthCertificate || "",
+        spousePassport: spouse.spousePassport || "",
+        spousePassportPhoto: spouse.spousePassportPhoto || "",
+        marriageCertificate: spouse.marriageCertificate || "",
+      })) : [],
+      childrenDetails: user?.application?.childrenDetails && user?.application?.childrenDetails.length ? user.application.childrenDetails.map((children) => ({
+        birthCertificate: children.birthCertificate || "",
+        passportPhoto: children.passportPhoto || "",
+        immunizationRecord: children.immunizationRecord || "",
+      })) : [],
     }
   });
 
@@ -79,7 +92,7 @@ export const Step3Form = () => {
             toast.error(data.error);
         })
         .catch((error) => {
-          console.error("error", error);
+          console.error(error);
           toast.error("An error occurred. Please try again.");
         })
         .finally(() => {
@@ -100,17 +113,19 @@ export const Step3Form = () => {
             <div className="space-y-4">
               <FileInput id="usSocialSecurityCard" label="US Social Security Card" />
               <FileInput id="usGreenCard" label="US Green Card" />
-              <FileInput id="birthCertificate" label="Birth Certificate" />
+              <FileInput id="birthCertificate" label="Birth Certificate" required />
               <SpouseDetails />
               <ChildrenDetails />
             </div>
             <div className="flex gap-2 self-end">
               <Button
-                type="button"
                 variant='outline'
                 className="w-48"
+                asChild
               >
-                Cancel
+                <Link href="/application/step-2">
+                  Back
+                </Link>
               </Button>
               <Button
                 disabled={isPending}
@@ -139,11 +154,11 @@ function SpouseDetails() {
       {fields.map((field, index) => (
         <div key={field.id} className="relative space-y-4">
           <Separator />
-          <FileInput id={`spouseDetails.${index}.spouseDemographics`} label="Spouse Demographics" />
-          <FileInput id={`spouseDetails.${index}.spouseBirthCertificate`} label="Spouse Birth Certificate" />
-          <FileInput id={`spouseDetails.${index}.spousePassport`} label="Spouse Passport" />
-          <FileInput id={`spouseDetails.${index}.spousePassportPhoto`} label="Spouse Passport Photo" />
-          <FileInput id={`spouseDetails.${index}.marriageCertificate`} label="Marriage Certificate" />
+          <FileInput id={`spouseDetails.${index}.spouseDemographics`} label="Spouse Demographics" required />
+          <FileInput id={`spouseDetails.${index}.spouseBirthCertificate`} label="Spouse Birth Certificate" required />
+          <FileInput id={`spouseDetails.${index}.spousePassport`} label="Spouse Passport" required />
+          <FileInput id={`spouseDetails.${index}.spousePassportPhoto`} label="Spouse Passport Photo" required />
+          <FileInput id={`spouseDetails.${index}.marriageCertificate`} label="Marriage Certificate" required />
           <Button
             type="button"
             variant='destructive'
@@ -186,9 +201,9 @@ function ChildrenDetails() {
       {fields.map((field, index) => (
         <div key={field.id} className="relative space-y-4">
           <Separator />
-          <FileInput id={`childrenDetails.${index}.birthCertificate`} label="Birth Certificate" />
-          <FileInput id={`childrenDetails.${index}.passportPhoto`} label="Passport Photo" />
-          <FileInput id={`childrenDetails.${index}.immunizationRecord`} label="Immunization Record" />
+          <FileInput id={`childrenDetails.${index}.birthCertificate`} label="Birth Certificate" required />
+          <FileInput id={`childrenDetails.${index}.passportPhoto`} label="Passport Photo" required />
+          <FileInput id={`childrenDetails.${index}.immunizationRecord`} label="Immunization Record" required />
           <Button
             type="button"
             variant='destructive'

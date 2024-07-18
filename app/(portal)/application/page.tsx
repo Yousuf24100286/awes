@@ -1,58 +1,63 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { getApplicationStep } from "@/data/application";
+import { Separator } from "@/components/ui/separator";
+import { getUserApplication } from "@/data/application";
 import Link from "next/link";
 
 const StepHeader = async () => {
-  const data = await getApplicationStep();
+  const user = await getUserApplication();
 
-  if (!data) {
+  if (!user) {
     return null;
   }
 
-  const steps = data.applicationStep === 'STEP_1' ? 1 : data.applicationStep === 'STEP_2' ? 2 : 3;
+  const step = user.application?.applicationStep === 'STEP_1' ? 1 : user.application?.applicationStep === 'STEP_2' ? 2 : 3;
 
   return (
-    <div className="grid gap-4">
+    <div className="grid gap-8">
       <div className="grid gap-2">
         <h2 className="text-xl font-bold">
-          Application
+          Account Homepage
         </h2>
         <p>
-          Fill out the basic information  and upload necessary documents and we will reach out to you for  detailed guidance for
-          next steps.
+          Welcome to the AWES application portal. You are just a few steps away from your dream career in the United States.
         </p>
       </div>
-      <div className="rounded-2xl bg-[#19615C] px-14 py-8">
-        {
-          Array.from({ length: steps }, (_, i) => i + 1).map((s, index) => (
-            <div
-              key={s}
-            >
-              {
-                index != 0 && (
-                  <div className="h-px w-full bg-white my-4" />
-                )
-              }
-              <div className="flex items-center">
-                <div className="text-white font-bold text-xl">
-                  Step {s}:
-                </div>
-                <div className="flex-grow" />
-                <Button
-                  variant='ghost'
-                  className="text-white font-bold text-xl"
-                  disabled={s !== steps}
-                >
-                  <Link href={`/application/step-${s}`}
-                  >
-                    {s < steps ? 'Completed' : 'In Progress'}
-                  </Link>
-                </Button>
-              </div>
+      <div className="grid gap-8 mx-auto max-w-2xl">
+        <div className="grid gap-4 bg-[#19615C] px-14 py-8 rounded-2xl">
+          <h2 className="text-white font-bold text-xl">
+            Start the application to access the complete functionality
+          </h2>
+          <div className="flex items-center gap-4 justify-center">
+            <Button variant='outline' className="bg-transparent text-white">Read instructions</Button>
+            <Button variant='brand' asChild>
+              <Link
+                href={`/application/step-${step}`}
+              >Continue application</Link>
+            </Button>
+          </div>
+        </div>
+        <div className="flex justify-between">
+          <div className="grid gap-4 px-5 py-7 rounded-2xl border-2 border-[#04092152] w-[calc(50%_-_8px)]">
+            <div className="flex items-center font-bold text-xl gap-8">
+              <span>
+                Application Status:
+              </span>
+              <span className="text-[#19615C] whitespace-nowrap">In progress</span>
             </div>
-          ))
-        }
+          </div>
+          <div className="grid gap-4 px-5 py-7 rounded-2xl border-2 border-[#04092152] w-[calc(50%_-_8px)]">
+            <div className="flex items-center font-bold text-xl justify-between">
+              <span className="whitespace-nowrap">Accessible steps:</span>
+              <span className="text-[#19615C] whitespace-nowrap">Step {step}</span>
+            </div>
+          </div>
+        </div>
+        <div className="grid gap-4 py-7 rounded-2xl border-2 border-[#04092152]">
+          <h3 className="whitespace-nowrap font-bold text-xl px-5">Remarks:</h3>
+          <Separator className="bg-[#04092152] h-px" />
+          <p className="font-normal text-base px-5">{user.application?.feedback}</p>
+        </div>
       </div>
     </div>
   )

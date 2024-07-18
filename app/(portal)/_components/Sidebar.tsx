@@ -4,17 +4,21 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import { usePathname } from 'next/navigation';
+import { Home, Mail } from 'lucide-react';
 
 const navigation = [
   {
-    name: 'Application',
+    name: 'My Application',
     href: '/application',
     show: true,
+    icon: Home,
+
   },
   {
     name: 'Documents',
     href: '/documents',
     show: true,
+    icon: Mail,
   },
 ];
 
@@ -26,16 +30,17 @@ const Navigation = () => {
         <Button
           key={index}
           asChild
-          className='font-medium'
-          variant={item.href === '/documents' && pathname === '/documents' ? 'default' : item.href !== '/documents' && pathname !== '/documents' ? 'default' : 'ghost'}
+          className='font-medium justify-start px-8'
+          variant={item.href === '/documents' && pathname === '/documents' ? 'brand' : item.href !== '/documents' && pathname !== '/documents' ? 'brand' : 'ghost'}
         >
           <Link
             href={item.href}
             className={cn(
-              'mx-[-0.65rem] flex items-center gap-4 rounded-xl px-3 py-2 text-foreground',
+              'mx-[-0.65rem] flex items-start justify-start gap-4 rounded-xl px-3 py-2 text-foreground',
               !item.show && 'hidden'
             )}
           >
+            <item.icon className='w-5 h-5' />
             {item.name}
           </Link>
         </Button>

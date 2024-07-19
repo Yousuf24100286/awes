@@ -63,17 +63,27 @@ export const handleStep3 = async (
   applicationId: string,
   step3Data: z.infer<typeof Step3Schema>
 ) => {
-  return await db.application.update({
-    where: { id: applicationId },
-    data: {
-      ...step3Data,
-      childrenDetails: {
-        create: step3Data.childrenDetails,
+  return await db.$transaction(async (prisma) => {
+    await prisma.childrenDetail.deleteMany({
+      where: { applicationId },
+    });
+
+    await prisma.spouseDetail.deleteMany({
+      where: { applicationId },
+    });
+
+    return await prisma.application.update({
+      where: { id: applicationId },
+      data: {
+        ...step3Data,
+        childrenDetails: {
+          create: step3Data.childrenDetails,
+        },
+        spouseDetails: {
+          create: step3Data.spouseDetails,
+        },
       },
-      spouseDetails: {
-        create: step3Data.spouseDetails,
-      },
-    },
+    });
   });
 };
 

@@ -29,6 +29,7 @@ import { step1 } from "@/actions/application/step1";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useCurrentUser } from "@/hooks/use-current-user";
+import ProtectStep from "@/components/auth/protect-step";
 
 const StepHeader = ({ step }: { step: number }) => {
   return (
@@ -73,7 +74,7 @@ export const Step1Form = () => {
     resolver: zodResolver(Step1Schema),
     defaultValues: {
       name: user?.application?.name || '',
-      dateOfBirth: user?.application?.dateOfBirth || new Date(),
+      dateOfBirth: new Date(user?.application?.dateOfBirth || ''),
       phoneNumber: user?.application?.phoneNumber || '',
       email: user?.application?.email || '',
       emergencyContactName: user?.application?.emergencyContactName || '',
@@ -89,7 +90,6 @@ export const Step1Form = () => {
     }
   });
 
-
   const onSubmit = (values: z.infer<typeof Step1Schema>) => {
     toast.info("Uploading documents...");
     console.log('values', values)
@@ -101,15 +101,18 @@ export const Step1Form = () => {
             toast.success(data.success);
           if (data.error)
             toast.error(data.error);
-        })
-        .finally(() => {
           router.push("/application");
-        });
+        })
+        .catch((error) => {
+          console.error(error);
+          toast.error("An error occurred. Please try again.");
+        })
     });
   };
 
   return (
     <Card className="bg-[#FFFCF7] w-full">
+      <ProtectStep step="STEP_1" />
       <CardContent className="p-10 grid gap-6">
         <StepHeader step={1} />
         <Form {...form}>
@@ -149,145 +152,98 @@ export const Step1Form = () => {
   )
 }
 
-function Section1() {
+const TextInput = ({ id, label, className, required = false }: { id: string, label: string, className?: string, required?: boolean }) => {
   const form = useFormContext();
+  const { getFieldState, formState } = form;
+  const fieldState = getFieldState(id, formState);
 
   return (
-    <div className="space-y-4">
+    <FormField
+      control={form.control}
+      name={id}
+      render={({ field }) => (
+        <FormItem className="w-full">
+          <FormLabel>{label}{required && <span className="text-destructive">*</span>}</FormLabel>
+          <FormControl>
+            <Input {...field} className={cn(fieldState.error ? "border-destructive" : "", className)} />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+      )}
+    />
+  )
+}
+
+function Section1() {
+  const form = useFormContext();
+  const { getFieldState, formState } = form;
+  const fieldState = getFieldState('dateOfBirth', formState);
+
+
+  return (
+    <div className="space-y-2">
       <div className="flex gap-16">
-        <FormField
-          control={form.control}
-          name="name"
-          render={({ field }) => (
-            <FormItem className="w-full">
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <TextInput id="name" label="Name" required />
         <FormField
           control={form.control}
           name="dateOfBirth"
           render={({ field }) => (
-            <FormItem className="flex flex-col gap-1 pt-1 w-full">
-              <FormLabel>Date of birth</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant={"outline"}
-                      className={cn(
-                        "pl-3 text-left font-normal",
-                        !field.value && "text-muted-foreground"
-                      )}
-                    >
-                      {field.value ? (
-                        format(field.value, "PPP")
-                      ) : (
-                        <span>Pick a date</span>
-                      )}
-                      <CalendarIcon
-                        className="ml-auto h-4 w-4 opacity-50" />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="single"
-                    selected={field.value}
-                    onSelect={field.onChange}
-                    disabled={(date) =>
-                      date > new Date() || date < new Date("1900-01-01")
-                    }
-                  />
-                </PopoverContent>
-              </Popover>
+            <FormItem className="w-full pt-1">
+              <div className="flex flex-col gap-1">
+                <FormLabel>Date of birth<span className="text-destructive">*</span></FormLabel>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant={"outline"}
+                        className={cn(
+                          "pl-3 text-left font-normal",
+                          !field.value && "text-muted-foreground"
+                          , fieldState.error ? "border-destructive" : "")}
+                      >
+                        {field.value ? (
+                          format(field.value, "PPP")
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
+                        <CalendarIcon
+                          className="ml-auto h-4 w-4 opacity-50" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={field.value}
+                      onSelect={field.onChange}
+                      disabled={(date) =>
+                        date > new Date() || date < new Date("1900-01-01")
+                      }
+                    />
+                  </PopoverContent>
+                </Popover>
+              </div>
               <FormMessage />
             </FormItem>
           )}
         />
       </div>
       <div className="flex gap-16">
-        <FormField
-          control={form.control}
-          name="phoneNumber"
-          render={({ field }) => (
-            <FormItem className="w-full">
-              <FormLabel>Phone Number</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem className="w-full">
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input type="email" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <TextInput id="phoneNumber" label="Phone Number" required />
+        <TextInput id="email" label="Email" required />
       </div>
     </div>
   )
 }
 
 function Section2() {
-  const form = useFormContext();
-
   return (
-    <div className="space-y-4">
+    <div className="space-y-2">
       <div className="flex gap-16">
-        <FormField
-          control={form.control}
-          name="emergencyContactName"
-          render={({ field }) => (
-            <FormItem className="w-full">
-              <FormLabel>Emergency Contact Name</FormLabel>
-              <FormControl>
-                <Input {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="emergencyContactEmail"
-          render={({ field }) => (
-            <FormItem className="w-full">
-              <FormLabel>Emergency Contact Email</FormLabel>
-              <FormControl>
-                <Input type="email" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <TextInput id="emergencyContactName" label="Emergency Contact Name" required />
+        <TextInput id="emergencyContactEmail" label="Emergency Contact Email" required />
       </div>
-      <FormField
-        control={form.control}
-        name="emergencyContactNumber"
-        render={({ field }) => (
-          <FormItem className="w-[calc(50%_-_2rem)]">
-            <FormLabel>Emergency Phone Number</FormLabel>
-            <FormControl>
-              <Input {...field} />
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
+      <TextInput id="emergencyContactNumber" label="Emergency Phone Number" className="w-[calc(50%_-_2rem)]" required />
     </div>
   )
 }
@@ -295,10 +251,10 @@ function Section2() {
 function Section3() {
   return (
     <div className="space-y-4">
-      <FileInput id="nationalIdCard" label="National ID Card" />
+      <FileInput id="nationalIdCard" label="National ID Card" required />
       <FileInput id="passport" label="Passport" />
-      <FileInput id="nursingLicense" label="Nursing License" />
-      <FileInput id="nursingDegree" label="Nursing Degree" />
+      <FileInput id="nursingLicense" label="Nursing License" required />
+      <FileInput id="nursingDegree" label="Nursing Degree" required />
       <FileInput id="highSchoolDiploma" label="High School Diploma" />
       <FileInput id="highSchoolGrades" label="High School Grades" />
       <FileInput id="curriculumVitae" label="Curriculum Vitae" />

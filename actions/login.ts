@@ -7,13 +7,14 @@ import { signIn } from '@/auth';
 import { LoginSchema } from '@/schemas';
 import { getUserByEmail } from '@/data/user';
 import { sendVerificationEmail } from '@/lib/mail';
-import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
 import { generateVerificationToken } from '@/lib/tokens';
+import { currentRole } from '@/lib/auth';
 
 export const login = async (
   values: z.infer<typeof LoginSchema>,
   callbackUrl?: string | null
 ) => {
+  const role = await currentRole();
   const validatedFields = LoginSchema.safeParse(values);
 
   if (!validatedFields.success) {
@@ -48,7 +49,10 @@ export const login = async (
     await signIn('credentials', {
       email,
       password,
-      redirectTo: callbackUrl || DEFAULT_LOGIN_REDIRECT,
+      redirectTo:
+        callbackUrl || role === 'USER'
+          ? '/application'
+          : '/static-analytics',
     });
   } catch (error) {
     if (error instanceof AuthError) {

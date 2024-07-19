@@ -17,6 +17,7 @@ import { step2 } from "@/actions/application/step2";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useCurrentUser } from "@/hooks/use-current-user";
+import ProtectStep from "@/components/auth/protect-step";
 
 const StepHeader = ({ step }: { step: number }) => {
   return (
@@ -80,19 +81,18 @@ export const Step2Form = () => {
             toast.success(data.success);
           if (data.error)
             toast.error(data.error);
+          router.push("/application");
         })
         .catch((error) => {
-          toast.error(error.message);
           console.error(error);
+          toast.error("An error occurred. Please try again.");
         })
-        .finally(() => {
-          router.push("/application");
-        });
     });
   };
 
   return (
     <Card className="bg-[#FFFCF7] w-full">
+      <ProtectStep step="STEP_2" />
       <CardContent className="p-10 grid gap-6">
         <StepHeader step={2} />
         <Form {...form}>
@@ -101,10 +101,10 @@ export const Step2Form = () => {
             className="space-y-6 flex flex-col max-w-2xl"
           >
             <div className="space-y-4">
-              <FileInput id="nationalId" label="National ID / State ID" />
-              <FileInput id="passportPhoto" label="Photo (Passport Size)" />
+              <FileInput id="nationalId" label="National ID / State ID" required />
+              <FileInput id="passportPhoto" label="Photo (Passport Size)" required />
               <FileInput id="passportId" label="Passport ID" />
-              <FileInput id="nursingSchoolDiploma" label="Nursing School Diploma" />
+              <FileInput id="nursingSchoolDiploma" label="Nursing School Diploma" required />
               <FileInput id="nursingSchoolTranscript" label="Nursing School Subjects / Grades Transcript" />
               <FileInput id="nursingExperienceCertificate" label="Nursing Experience Certificate" />
             </div>

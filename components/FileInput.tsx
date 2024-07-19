@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { useUploadThing } from "@/lib/uploadthing";
 import { cn } from "@/lib/utils";
 import { generateMimeTypes } from "@uploadthing/shared";
+import { X } from "lucide-react";
 import { useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { toast } from "sonner";
@@ -47,21 +48,22 @@ interface FileInputProps {
 
 export function FileInput({ id, label, required }: FileInputProps) {
   const form = useFormContext();
-  const fileRef = form.register(id);
-
   const fileUrl = form.watch(id);
-
   const [disable, setDisable] = useState(false);
+
+  const { getFieldState, formState } = form;
+
+  const fieldState = getFieldState(id, formState);
+
 
   const { startUpload, isUploading, permittedFileInfo } = useUploadThing(
     "imageUploader",
     {
-      onUploadBegin: () => {
-        setDisable(true);
-      },
+      onUploadBegin: () => setDisable(true),
       onClientUploadComplete: (files) => {
         const { url } = files[0];
         form.setValue(id, url);
+        form.trigger(id);
         toast.success("Upload Completed!");
       },
       onUploadError: (error: Error) => {
@@ -78,20 +80,24 @@ export function FileInput({ id, label, required }: FileInputProps) {
     <div className="flex flex-col gap-1">
       <Label htmlFor={disable ? "not-clickable" : id}>
         {label}
-        {required && <span className="text-[#DC2626]">*</span>}
+        {required && <span className="text-destructive">*</span>}
       </Label>
       <Label className={cn(buttonVariants({
         variant: "outline",
         size: "lg"
-      }), '')}
+      }), fieldState.error ? "border-destructive" : "")}
         htmlFor={disable ? "not-clickable" : id}
       >
+        <Input
+          className="sr-only"
+          {...form.register(id, { required })}
+          disabled={disable}
+        />
         <Input
           className="sr-only"
           type="file"
           id={id}
           accept={generateMimeTypes(fileTypes ?? [])?.join(", ")}
-          {...fileRef}
           onChange={(e) => {
             if (!e.target.files) return;
             void startUpload(Array.from(e.target.files));
@@ -103,19 +109,38 @@ export function FileInput({ id, label, required }: FileInputProps) {
         </span>
       </Label>
       <div>
-        <p className="text-xs leading-5 text-gray-600">
-          {fileUrl ?
-            <a
-              href={fileUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="underline"
-            >
-              {fileUrl}
-            </a> :
-            allowedContentTextLabelGenerator(permittedFileInfo?.config)
-          }
-        </p>
+        {
+          fieldState.error ? (
+            <p className="text-xs leading-5 text-destructive">
+              {fieldState.error.message}
+            </p>
+          ) :
+            <div className="text-xs leading-5 text-gray-600">
+              {
+                fileUrl ?
+                  <div className="flex items-center gap-2">
+                    <a
+                      href={fileUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="underline"
+                    >
+                      {fileUrl}
+                    </a>
+                    <span className='text-xs leading-5 cursor-pointer text-destructive hover:text-destructive/50'
+                      onClick={() => {
+                        form.setValue(id, '');
+                        // form.trigger(id);
+                      }}
+                    >
+                      <X width={18} height={18} />
+                    </span>
+                  </div>
+                  :
+                  allowedContentTextLabelGenerator(permittedFileInfo?.config)
+              }
+            </div>
+        }
       </div>
     </div>
   );

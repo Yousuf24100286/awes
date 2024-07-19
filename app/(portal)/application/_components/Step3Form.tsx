@@ -19,6 +19,7 @@ import { PlusCircle, Trash2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useCurrentUser } from "@/hooks/use-current-user";
+import ProtectStep from "@/components/auth/protect-step";
 
 const StepHeader = ({ step }: { step: number }) => {
   return (
@@ -90,19 +91,18 @@ export const Step3Form = () => {
             toast.success(data.success);
           if (data.error)
             toast.error(data.error);
+          router.push("/application");
         })
         .catch((error) => {
           console.error(error);
           toast.error("An error occurred. Please try again.");
         })
-        .finally(() => {
-          router.push("/application");
-        });
     });
   };
 
   return (
     <Card className="bg-[#FFFCF7] w-full">
+      <ProtectStep step="STEP_3" />
       <CardContent className="p-10 grid gap-6">
         <StepHeader step={3} />
         <Form {...form}>

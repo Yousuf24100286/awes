@@ -14,6 +14,7 @@ import { login } from "@/actions/login";
 import { CardWrapper } from "./card-wrapper";
 import { toast } from "sonner";
 import { TextInput } from "@/components/TextInput";
+import { Checkbox } from "@/components/ui/checkbox"
 
 export const LoginForm = () => {
   const searchParams = useSearchParams();
@@ -42,42 +43,57 @@ export const LoginForm = () => {
   };
 
   return (
-    <CardWrapper
-      headerLabel="Welcome back"
-      backButtonLabel="Don't have an account?"
-      backButtonHref="/auth/register"
-    >
-      <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className=""
-        >
-          <div className="">
-            <TextInput id="email" label="Email" type="email" required />
-            <TextInput id="password" label="Password" type="password" required />
-
-            <Button
-              size="sm"
-              variant="link"
-              asChild
-              className="px-0 font-normal"
-            >
-              <Link href="/auth/reset">
-                Forgot password?
-              </Link>
-            </Button>
-          </div>
-          <Button
-            disabled={isPending}
-            type="submit"
-            variant="brand"
-
-            className="w-full"
+    <>
+      <div className="w-[400px] grid gap-2">
+        <h2 className="text-3xl text-center font-extrabold text-white lg:text-jelly-bean">
+          Welcome back
+        </h2>
+        <p className="text-sm text-center text-white lg:text-[#0409219E]">
+          Please enter your login details
+        </p>
+      </div>
+      <CardWrapper>
+        <Form {...form}>
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="grid gap-6"
           >
-            Login
-          </Button>
-        </form>
-      </Form>
-    </CardWrapper>
+            <div>
+              <TextInput id="email" label="Email" type="email" required />
+              <TextInput id="password" label="Password" type="password" required />
+              <div className="flex justify-between items-center">
+                <div className="flex items-center space-x-2">
+                  <Checkbox id="terms" className="border-border" />
+                  <label
+                    htmlFor="terms"
+                    className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                  >
+                    Remember me
+                  </label>
+                </div>
+
+                <Link href="/auth/reset" className="text-[#4F46E5] hover:text-[#4F46E5]/80 text-sm">
+                  Forgot password?
+                </Link>
+              </div>
+            </div>
+            <Button
+              disabled={isPending}
+              type="submit"
+              variant="brand"
+              className="w-full"
+            >
+              Login
+            </Button>
+            <div className="flex items-center justify-center gap-1.5 text-sm">
+              <p>Do not have an account?</p>
+              <Link href="/auth/register" className="text-[#4F46E5] hover:text-[#4F46E5]/80 font-medium">
+                Sign up
+              </Link>
+            </div>
+          </form>
+        </Form>
+      </CardWrapper>
+    </>
   );
 };

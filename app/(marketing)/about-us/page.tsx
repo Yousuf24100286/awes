@@ -1,3 +1,5 @@
+import { Button } from "@/components/ui/button";
+
 const AboutUsPage = () => {
   return (
     <>
@@ -65,9 +67,11 @@ const AboutUsPage = () => {
                   id="message"
                   className="flex flex-col justify-center items-end px-3 py-2 mt-1.5 bg-white rounded-md border border-solid border-slate-300 max-md:pl-5 max-md:max-w-full"
                 />
-                <button type="submit" className="justify-center items-center px-4 py-2.5 mt-10 text-base font-bold leading-6 text-center text-white whitespace-nowrap bg-pink-900 rounded-lg max-md:px-5 max-md:max-w-full">
+                <Button type="submit"
+                  variant="brand"
+                  size="brand">
                   Submit
-                </button>
+                </Button>
               </form>
             </div>
             <div className="flex flex-col ml-5 w-[45%] max-md:ml-0 max-md:w-full">

@@ -6,7 +6,6 @@ import { useForm, useFormContext } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { Step1Schema } from "@/schemas/application";
-import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
@@ -21,10 +20,11 @@ import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
-import { format, parse } from "date-fns";
+import { format } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import { Separator } from "@/components/ui/separator";
 import { FileInput } from "@/components/FileInput";
+import { TextInput } from "@/components/TextInput";
 import { step1 } from "@/actions/application/step1";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -74,7 +74,7 @@ export const Step1Form = () => {
     resolver: zodResolver(Step1Schema),
     defaultValues: {
       name: user?.application?.name || '',
-      dateOfBirth: new Date(user?.application?.dateOfBirth || ''),
+      dateOfBirth: user?.application?.dateOfBirth || undefined,
       phoneNumber: user?.application?.phoneNumber || '',
       email: user?.application?.email || '',
       emergencyContactName: user?.application?.emergencyContactName || '',
@@ -140,6 +140,8 @@ export const Step1Form = () => {
               <Button
                 disabled={isPending}
                 type="submit"
+                variant="brand"
+                size="brand"
                 className="w-48 bg-[#7E1D38]"
               >
                 Submit
@@ -152,33 +154,10 @@ export const Step1Form = () => {
   )
 }
 
-const TextInput = ({ id, label, className, required = false }: { id: string, label: string, className?: string, required?: boolean }) => {
-  const form = useFormContext();
-  const { getFieldState, formState } = form;
-  const fieldState = getFieldState(id, formState);
-
-  return (
-    <FormField
-      control={form.control}
-      name={id}
-      render={({ field }) => (
-        <FormItem className="w-full">
-          <FormLabel>{label}{required && <span className="text-destructive">*</span>}</FormLabel>
-          <FormControl>
-            <Input {...field} className={cn(fieldState.error ? "border-destructive" : "", className)} />
-          </FormControl>
-          <FormMessage />
-        </FormItem>
-      )}
-    />
-  )
-}
-
 function Section1() {
   const form = useFormContext();
   const { getFieldState, formState } = form;
   const fieldState = getFieldState('dateOfBirth', formState);
-
 
   return (
     <div className="space-y-2">
@@ -230,7 +209,7 @@ function Section1() {
       </div>
       <div className="flex gap-16">
         <TextInput id="phoneNumber" label="Phone Number" required />
-        <TextInput id="email" label="Email" required />
+        <TextInput id="email" label="Email" type="email" required />
       </div>
     </div>
   )
@@ -241,7 +220,7 @@ function Section2() {
     <div className="space-y-2">
       <div className="flex gap-16">
         <TextInput id="emergencyContactName" label="Emergency Contact Name" required />
-        <TextInput id="emergencyContactEmail" label="Emergency Contact Email" required />
+        <TextInput id="emergencyContactEmail" label="Emergency Contact Email" type="email" required />
       </div>
       <TextInput id="emergencyContactNumber" label="Emergency Phone Number" className="w-[calc(50%_-_2rem)]" required />
     </div>

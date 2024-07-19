@@ -68,6 +68,8 @@ const Feedback = ({ applicationId }: { applicationId: string }) => {
         <DialogFooter>
           <Button
             type="submit"
+            variant="brand"
+            size="brand"
             disabled={isPending}
             onClick={handleAddFeedback}
           >

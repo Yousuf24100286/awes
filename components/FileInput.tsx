@@ -46,7 +46,7 @@ interface FileInputProps {
   required?: boolean;
 }
 
-export function FileInput({ id, label, required }: FileInputProps) {
+export const FileInput = ({ id, label, required }: FileInputProps) => {
   const form = useFormContext();
   const fileUrl = form.watch(id);
   const [disable, setDisable] = useState(false);

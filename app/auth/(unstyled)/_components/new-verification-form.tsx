@@ -5,35 +5,38 @@ import { BeatLoader } from "react-spinners";
 import { useSearchParams } from "next/navigation";
 
 import { newVerification } from "@/actions/new-verification";
-import { CardWrapper } from "@/components/auth/card-wrapper";
-import { FormError } from "@/components/form-error";
-import { FormSuccess } from "@/components/form-success";
+import { CardWrapper } from "./card-wrapper";
+import { toast } from "sonner";
 
 export const NewVerificationForm = () => {
-  const [error, setError] = useState<string | undefined>();
-  const [success, setSuccess] = useState<string | undefined>();
-
   const searchParams = useSearchParams();
+
+  const [success, setSuccess] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const token = searchParams.get("token");
 
   const onSubmit = useCallback(() => {
-    if (success || error) return;
-
     if (!token) {
-      setError("Missing token!");
+      toast.error("Missing token!");
       return;
     }
 
     newVerification(token)
       .then((data) => {
-        setSuccess(data.success);
-        setError(data.error);
+        if (data?.error) {
+          setError(data?.error);
+          toast.error(data?.error);
+        }
+        if (data?.success) {
+          setSuccess(data?.success);
+          toast.success(data?.success);
+        }
       })
       .catch(() => {
-        setError("Something went wrong!");
+        toast.error("Something went wrong!");
       })
-  }, [token, success, error]);
+  }, [token]);
 
   useEffect(() => {
     onSubmit();
@@ -42,17 +45,17 @@ export const NewVerificationForm = () => {
   return (
     <CardWrapper
       headerLabel="Confirming your verification"
-      backButtonLabel="Back to login"
-      backButtonHref="/auth/login"
     >
       <div className="flex items-center w-full justify-center">
-        {!success && !error && (
+        {!success && !error ? (
           <BeatLoader />
-        )}
-        <FormSuccess message={success} />
-        {!success && (
-          <FormError message={error} />
-        )}
+        ) :
+          <div className="text-center">
+            <p className="text-lg font-semibold text-gray-800">
+              {success || error}
+            </p>
+          </div>
+        }
       </div>
     </CardWrapper>
   )

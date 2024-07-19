@@ -130,6 +130,8 @@ export const Step3Form = () => {
               <Button
                 disabled={isPending}
                 type="submit"
+                variant="brand"
+                size="brand"
                 className="w-48 bg-[#7E1D38]"
               >
                 Submit

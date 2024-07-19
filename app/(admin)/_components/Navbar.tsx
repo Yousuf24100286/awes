@@ -30,7 +30,6 @@ const Navigation = () => {
         <Button
           key={index}
           asChild
-          // TODO: fix the variant
           variant={item.href === '/static-analytics' && pathname === '/static-analytics' ? 'default' : item.href !== '/static-analytics' && pathname !== '/static-analytics' ? 'default' : 'ghost'}
         >
           <Link
@@ -49,7 +48,6 @@ const Navigation = () => {
 };
 
 const Navbar = () => {
-
   return (
     <>
       <div className="hidden border-r bg-muted/40 md:block">

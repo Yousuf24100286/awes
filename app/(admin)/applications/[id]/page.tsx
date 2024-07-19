@@ -101,103 +101,140 @@ const FormattedField = ({ label, value, link }: { label: string, value?: string,
 
 const Step1 = ({ data }: { data: z.infer<typeof Step1Schema> }) => {
   return (
-    <div className="grid gap-4">
-      <h2 className='text-2xl font-bold text-center'>Step 1</h2>
-      <div className="grid gap-2">
-        <FormattedField label="Name" value={data.name} />
-        <FormattedField label="Date of Birth" value={data.dateOfBirth ? JSON.stringify(data.dateOfBirth) : ''} />
-        <FormattedField label="Phone Number" value={data.phoneNumber} />
-        <FormattedField label="Email" value={data.email} />
-        <FormattedField label="Emergency Contact Name" value={data.emergencyContactName} />
-        <FormattedField label="Emergency Contact Email" value={data.emergencyContactEmail} />
-        <FormattedField label="Emergency Contact Number" value={data.emergencyContactNumber} />
-        <FormattedField label="National ID Card" value={data.nationalIdCard} link />
-        <FormattedField label="Passport" value={data.passport} link />
-        <FormattedField label="Nursing License" value={data.nursingLicense} link />
-        <FormattedField label="Nursing Degree" value={data.nursingDegree} link />
-        <FormattedField label="High School Diploma" value={data.highSchoolDiploma} link />
-        <FormattedField label="High School Grades" value={data.highSchoolGrades} link />
-        <FormattedField label="Curriculum Vitae" value={data.curriculumVitae} link />
+    Object.values(data).every((value) => !value) ? (
+      <div className="grid gap-4">
+        <h2 className='text-2xl font-bold text-center'>Step 1</h2>
+        <p className='text-center'>Not filled as of yet!</p>
       </div>
-    </div>
+    ) : (
+      <div className="grid gap-4">
+        <h2 className='text-2xl font-bold text-center'>Step 1</h2 >
+        <div className="grid gap-2">
+          <FormattedField label="Name" value={data.name} />
+          <FormattedField label="Date of Birth" value={JSON.stringify(data.dateOfBirth)} />
+          <FormattedField label="Phone Number" value={data.phoneNumber} />
+          <FormattedField label="Email" value={data.email} />
+          <FormattedField label="Emergency Contact Name" value={data.emergencyContactName} />
+          <FormattedField label="Emergency Contact Email" value={data.emergencyContactEmail} />
+          <FormattedField label="Emergency Contact Number" value={data.emergencyContactNumber} />
+          <FormattedField label="National ID Card" value={data.nationalIdCard} link />
+          <FormattedField label="Passport" value={data.passport} link />
+          <FormattedField label="Nursing License" value={data.nursingLicense} link />
+          <FormattedField label="Nursing Degree" value={data.nursingDegree} link />
+          <FormattedField label="High School Diploma" value={data.highSchoolDiploma} link />
+          <FormattedField label="High School Grades" value={data.highSchoolGrades} link />
+          <FormattedField label="Curriculum Vitae" value={data.curriculumVitae} link />
+        </div>
+      </div>
+    )
+
   )
 }
 
 const Step2 = ({ data }: { data: z.infer<typeof Step2Schema> }) => {
   return (
-    <div className="grid gap-4">
-      <h2 className='text-2xl font-bold text-center'>Step 2</h2>
-      <div className="grid gap-2">
-        <FormattedField label="National ID" value={data.nationalId} link />
-        <FormattedField label="Passport Photo" value={data.passportPhoto} link />
-        <FormattedField label="Passport ID" value={data.passportId} link />
-        <FormattedField label="Nursing School Diploma" value={data.nursingSchoolDiploma} link />
-        <FormattedField label="Nursing School Transcript" value={data.nursingSchoolTranscript} link />
-        <FormattedField label="Nursing Experience Certificate" value={data.nursingExperienceCertificate} link />
+    Object.values(data).every((value) => !value) ? (
+      <div className="grid gap-4">
+        <h2 className='text-2xl font-bold text-center'>Step 2</h2>
+        <p className='text-center'>Not filled as of yet!</p>
       </div>
-    </div>
+    ) : (
+      <div className="grid gap-4">
+        <h2 className='text-2xl font-bold text-center'>Step 2</h2>
+        <div className="grid gap-2">
+          <FormattedField label="National ID" value={data.nationalId} link />
+          <FormattedField label="Passport Photo" value={data.passportPhoto} link />
+          <FormattedField label="Passport ID" value={data.passportId} link />
+          <FormattedField label="Nursing School Diploma" value={data.nursingSchoolDiploma} link />
+          <FormattedField label="Nursing School Transcript" value={data.nursingSchoolTranscript} link />
+          <FormattedField label="Nursing Experience Certificate" value={data.nursingExperienceCertificate} link />
+        </div>
+      </div>
+    )
   )
 }
 
 const Step3 = ({ data }: { data: z.infer<typeof Step3Schema> }) => {
+  const isEmpty = (obj: any) => {
+    if (obj === null || obj === undefined) return true;
+    if (Array.isArray(obj)) return obj.length === 0;
+    if (typeof obj === 'object') return Object.keys(obj).length === 0;
+    return false;
+  };
+
   return (
-    <div className="grid gap-4">
-      <h2 className='text-2xl font-bold text-center'>Step 3</h2>
-      <div className='grid gap-4'>
-        <div className="grid gap-2">
-          <FormattedField label="US Social Security Card" value={data.usSocialSecurityCard} link />
-          <FormattedField label="US Green Card" value={data.usGreenCard} link />
-          <FormattedField label="Birth Certificate" value={data.birthCertificate} link />
-        </div>
-        {
-          data.spouseDetails && data.spouseDetails.length > 0 &&
-          <div className='grid gap-4'>
-            <h3 className="text-xl font-bold underline">Spouse Details</h3>
-            {
-              data.spouseDetails.map((spouse, index) => (
-                <div key={index} className="grid gap-2">
-                  <FormattedField label="Spouse Demographics" value={spouse.spouseDemographics} link />
-                  <FormattedField label="Spouse Birth Certificate" value={spouse.spouseBirthCertificate} link />
-                  <FormattedField label="Spouse Passport" value={spouse.spousePassport} link />
-                  <FormattedField label="Spouse Passport Photo" value={spouse.spousePassportPhoto} link />
-                  <FormattedField label="Marriage Certificate" value={spouse.marriageCertificate} link />
-                </div>
-              ))
-            }
-          </div>
-        }
-        {
-          data.childrenDetails && data.childrenDetails.length > 0 &&
-          <div className='grid gap-4'>
-            <h3 className="text-xl font-bold underline">Children Details</h3>
-            {
-              data.childrenDetails.map((child, index) => (
-                <div key={index} className="grid gap-2">
-                  <FormattedField label="Birth Certificate" value={child.birthCertificate} link />
-                  <FormattedField label="Passport Photo" value={child.passportPhoto} link />
-                  <FormattedField label="Immunization Record" value={child.immunizationRecord} link />
-                </div>
-              ))
-            }
-          </div>
-        }
+    // TODO: fix this object check logic
+    Object.values(data).every(isEmpty) ? (
+      <div className="grid gap-4">
+        <h2 className='text-2xl font-bold text-center'>Step 3</h2>
+        <p className='text-center'>Not filled as of yet!</p>
       </div>
-    </div>
+    ) : (
+      <div className="grid gap-4">
+        <h2 className='text-2xl font-bold text-center'>Step 3</h2>
+        <div className='grid gap-4'>
+          <div className="grid gap-2">
+            <FormattedField label="US Social Security Card" value={data.usSocialSecurityCard} link />
+            <FormattedField label="US Green Card" value={data.usGreenCard} link />
+            <FormattedField label="Birth Certificate" value={data.birthCertificate} link />
+          </div>
+          {
+            data.spouseDetails && data.spouseDetails.length > 0 &&
+            <div className='grid gap-4'>
+              <h3 className="text-xl font-bold underline">Spouse Details</h3>
+              {
+                data.spouseDetails.map((spouse, index) => (
+                  <div key={index} className="grid gap-2">
+                    <FormattedField label="Spouse Demographics" value={spouse.spouseDemographics} link />
+                    <FormattedField label="Spouse Birth Certificate" value={spouse.spouseBirthCertificate} link />
+                    <FormattedField label="Spouse Passport" value={spouse.spousePassport} link />
+                    <FormattedField label="Spouse Passport Photo" value={spouse.spousePassportPhoto} link />
+                    <FormattedField label="Marriage Certificate" value={spouse.marriageCertificate} link />
+                  </div>
+                ))
+              }
+            </div>
+          }
+          {
+            data.childrenDetails && data.childrenDetails.length > 0 &&
+            <div className='grid gap-4'>
+              <h3 className="text-xl font-bold underline">Children Details</h3>
+              {
+                data.childrenDetails.map((child, index) => (
+                  <div key={index} className="grid gap-2">
+                    <FormattedField label="Birth Certificate" value={child.birthCertificate} link />
+                    <FormattedField label="Passport Photo" value={child.passportPhoto} link />
+                    <FormattedField label="Immunization Record" value={child.immunizationRecord} link />
+                  </div>
+                ))
+              }
+            </div>
+          }
+        </div>
+      </div>
+    )
   )
 }
 
 const AdminDocuments = ({ data }: { data: z.infer<typeof AdminDocumentsSchema> }) => {
   return (
-    <div className="grid gap-4">
-      <h2 className='text-2xl font-bold text-center'>Documents</h2>
-      <div className="grid gap-2">
-        <FormattedField label="TOEFL Exam Result" value={data.toeflExamResult} link />
-        <FormattedField label="US Nursing Evaluation" value={data.usNursingEvaluation} link />
-        <FormattedField label="US CGFNS Certificate" value={data.usCgfnsCertificate} link />
-        <FormattedField label="US Visa Screen" value={data.usVisaScreen} link />
-        <FormattedField label="US Job Offer" value={data.usJobOffer} link />
+    Object.values(data).every((value) => !value) ? (
+      <div className="grid gap-4">
+        <h2 className='text-2xl font-bold text-center'>Documents</h2>
+        <p className='text-center'>You have not uploaded any document!</p>
       </div>
-    </div>
+    ) : (
+      <div className="grid gap-4">
+        <h2 className='text-2xl font-bold text-center'>Documents</h2>
+        <div className="grid gap-2">
+          <FormattedField label="TOEFL Exam Result" value={data.toeflExamResult} link />
+          <FormattedField label="US Nursing Evaluation" value={data.usNursingEvaluation} link />
+          <FormattedField label="US CGFNS Certificate" value={data.usCgfnsCertificate} link />
+          <FormattedField label="US Visa Screen" value={data.usVisaScreen} link />
+          <FormattedField label="US Job Offer" value={data.usJobOffer} link />
+        </div>
+      </div>
+    )
   )
 }
 
@@ -239,7 +276,14 @@ const ApplicationPage = async ({ params }: { params: { id: string } }) => {
             </div>
           </div>
           <CardDescription>
-            <span className='font-normal'>Feedback given: </span>{user.application.feedback}
+            {user.application.feedback ? (
+              <div>
+                <span className='font-normal'>Feedback given: </span>{user.application.feedback}
+              </div>
+            )
+              :
+              <span className='font-normal'>Not feedback given!</span>
+            }
           </CardDescription>
         </CardHeader>
         <Separator />

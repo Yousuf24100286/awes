@@ -69,7 +69,6 @@ const Feedback = ({ applicationId }: { applicationId: string }) => {
           <Button
             type="submit"
             variant="brand"
-            size="brand"
             disabled={isPending}
             onClick={handleAddFeedback}
           >

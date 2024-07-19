@@ -82,7 +82,6 @@ const AdminDocumentsUpload = ({ applicationId }: { applicationId: string }) => {
               <Button
                 type="submit"
                 variant="brand"
-                size="brand"
                 disabled={isPending}
               >
                 Upload

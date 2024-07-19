@@ -71,7 +71,7 @@ export const LoginForm = () => {
             disabled={isPending}
             type="submit"
             variant="brand"
-            size="brand"
+
             className="w-full"
           >
             Login

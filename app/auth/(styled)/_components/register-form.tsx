@@ -57,7 +57,7 @@ export const RegisterForm = () => {
             disabled={isPending}
             type="submit"
             variant="brand"
-            size="brand"
+
             className="w-full"
           >
             Create an account

@@ -53,7 +53,7 @@ export const NewPasswordForm = () => {
             disabled={isPending}
             type="submit"
             variant="brand"
-            size="brand"
+
             className="w-full"
           >
             Reset password

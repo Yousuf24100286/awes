@@ -67,9 +67,10 @@ const AboutUsPage = () => {
                   id="message"
                   className="flex flex-col justify-center items-end px-3 py-2 mt-1.5 bg-white rounded-md border border-solid border-slate-300 max-md:pl-5 max-md:max-w-full"
                 />
-                <Button type="submit"
+                <Button
+                  type="submit"
                   variant="brand"
-                  size="brand">
+                >
                   Submit
                 </Button>
               </form>

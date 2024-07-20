@@ -1,6 +1,3 @@
-import { Card, CardHeader, CardContent, CardTitle, CardDescription } from "@/components/ui/card";
-import QueryClose from "../_components/QueryClose";
-import { Badge } from "@/components/ui/badge";
 import { getNewsletterSubscribers } from "@/data/newsletter";
 
 const NewsletterPage = async () => {

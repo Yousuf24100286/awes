@@ -14,14 +14,18 @@ export const addQuery = async (
     return { error: 'Invalid fields!' };
   }
 
-  await db.contactQuery.create({
-    data: {
-      name: validatedFields.data.name,
-      email: validatedFields.data.email,
-      subject: validatedFields.data.subject,
-      message: validatedFields.data.message,
-    },
-  });
+  try {
+    await db.contactQuery.create({
+      data: {
+        name: validatedFields.data.name,
+        email: validatedFields.data.email,
+        subject: validatedFields.data.subject,
+        message: validatedFields.data.message,
+      },
+    });
 
-  return { success: 'Successfully added query!' };
+    return { success: 'Successfully added query!' };
+  } catch (error) {
+    return { error: 'Failed to add query!' };
+  }
 };

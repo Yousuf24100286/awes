@@ -26,6 +26,7 @@ export const addQuery = async (
 
     return { success: 'Successfully added query!' };
   } catch (error) {
+    console.error(error);
     return { error: 'Failed to add query!' };
   }
 };

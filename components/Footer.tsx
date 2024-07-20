@@ -17,7 +17,7 @@ export default function Footer() {
 
   return (
     <section className="bg-brand w-full">
-      <div className="flex flex-col md:flex-row gap-8 w-full max-w-6xl px-5 mx-auto py-6">
+      <div className="flex flex-col md:flex-row gap-8 w-full md:max-w-3xl xl:max-w-6xl px-5 mx-auto py-6">
         <div className="flex flex-col md:w-3/12 md:mt-5">
           <Link href='/' className="flex items-center gap-2.5">
             <div className="relative aspect-[3.45] w-[150px] md:w-[207px]">
@@ -33,7 +33,7 @@ export default function Footer() {
           </p>
         </div>
         <div className="flex flex-col md:flex-row gap-5 mt-8 md:mt-28 w-full md:w-9/12 justify-between">
-          <form className="flex gap-3 items-end"
+          <form className="md:mx-auto flex gap-3 items-end"
             onSubmit={(e) => {
               e.preventDefault()
               startTransition(() => {
@@ -62,6 +62,7 @@ export default function Footer() {
                   id="email"
                   type="email"
                   value={email}
+                  required
                   onChange={(e) => setEmail(e.target.value)}
                   aria-label="Enter your email"
                   placeholder="Enter your email Address"
@@ -71,7 +72,7 @@ export default function Footer() {
               </div>
             </div>
           </form>
-          <div className='flex justify-between mt-12 gap-5 md:mt-0'>
+          <div className='flex flex-row md:flex-col xl:flex-row justify-between mt-12 gap-5 md:mt-0'>
             <div className="flex flex-col text-white gap-5">
               <h3 className="text-base font-medium leading-4">Follow us</h3>
               <div className="flex gap-2">
@@ -95,7 +96,7 @@ export default function Footer() {
       </div>
       <div className='h-6 md:h-16 w-full' />
       <Separator className='hidden md:block' />
-      <div className="flex flex-col-reverse md:flex-row py-6 justify-between gap-5 text-sm text-white max-w-6xl px-5 w-full mx-auto">
+      <div className="flex flex-col-reverse md:flex-row py-6 justify-between gap-5 text-sm text-white  md:max-w-3xl xl:max-w-6xl px-5 w-full mx-auto">
         <div className="text-center">©{new Date().getFullYear()} All Rights Reserved</div>
         <div className="flex gap-3 md:gap-5 md:justify-between justify-center">
           <a className="hover:underline">Privacy Policy</a>

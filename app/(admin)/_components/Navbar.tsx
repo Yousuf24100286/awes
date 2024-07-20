@@ -25,6 +25,11 @@ const navigation = [
     href: '/queries',
     show: true,
   },
+  {
+    name: 'Newsletter Subscribers',
+    href: '/newsletter',
+    show: true,
+  },
 ];
 
 const Navigation = () => {

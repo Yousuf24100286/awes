@@ -1,6 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardHeader, CardContent, CardTitle, CardDescription } from "@/components/ui/card"
-import { getContactQueries } from "@/data/contactQuery"
+import { Card, CardHeader, CardContent, CardTitle, CardDescription } from "@/components/ui/card";
+import { getContactQueries } from "@/data/contactQuery";
 import QueryClose from "../_components/QueryClose";
 import { Badge } from "@/components/ui/badge";
 

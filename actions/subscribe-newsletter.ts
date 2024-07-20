@@ -5,18 +5,11 @@ import { NewsletterSchema } from '@/schemas/newsletter';
 import { z } from 'zod';
 
 export const subscribeNewsletter = async (
-  values: z.infer<typeof NewsletterSchema>
+  email: string
 ) => {
-  const validatedFields =
-    NewsletterSchema.safeParse(values);
-
-  if (!validatedFields.success) {
-    return { error: 'Invalid fields!' };
-  }
-
   const existingEmail = await db.newsletter.findFirst({
     where: {
-      email: validatedFields.data.email,
+      email,
     },
   });
 
@@ -27,7 +20,7 @@ export const subscribeNewsletter = async (
   try {
     await db.newsletter.create({
       data: {
-        email: validatedFields.data.email,
+        email,
       },
     });
 

@@ -140,3 +140,26 @@ model ChildrenDetail {
 
   application Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
 }
+
+enum QueryStatus {
+  PENDING
+  IN_PROGRESS
+  RESOLVED
+}
+
+model ContactQuery {
+  id        String      @id @default(cuid())
+  name      String
+  email     String
+  subject   String
+  message   String
+  status    QueryStatus @default(PENDING)
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+}
+
+model NewsletterSubscription {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  subscribedAt DateTime @default(now())
+}

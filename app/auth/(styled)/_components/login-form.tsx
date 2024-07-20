@@ -71,7 +71,6 @@ export const LoginForm = () => {
                     Remember me
                   </label>
                 </div>
-
                 <Link href="/auth/reset" className="text-[#4F46E5] hover:text-[#4F46E5]/80 text-sm">
                   Forgot password?
                 </Link>

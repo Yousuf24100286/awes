@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { getCompleteUser } from '@/data/user';
+import { getCompleteUser } from '@/data/auth/user';
 import { Application, ChildrenDetail, SpouseDetail } from '@prisma/client';
 import { z } from 'zod';
 import { AdminDocumentsSchema, Step1Schema, Step2Schema, Step3Schema } from '@/schemas/application';

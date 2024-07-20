@@ -7,10 +7,10 @@ import { useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 
-import { LoginSchema } from "@/schemas";
+import { LoginSchema } from "@/schemas/auth";
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { login } from "@/actions/login";
+import { login } from "@/actions/auth/login";
 import { CardWrapper } from "./card-wrapper";
 import { toast } from "sonner";
 import { TextInput } from "@/components/TextInput";

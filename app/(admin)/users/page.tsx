@@ -7,7 +7,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { getUsers } from '@/data/user';
+import { getUsers } from '@/data/auth/user';
 import Link from 'next/link';
 
 const UsersPage = async () => {

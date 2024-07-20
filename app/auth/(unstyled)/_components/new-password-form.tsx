@@ -6,12 +6,12 @@ import { useTransition } from "react";
 import { useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { NewPasswordSchema } from "@/schemas";
+import { NewPasswordSchema } from "@/schemas/auth";
 import {
   Form
 } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { newPassword } from "@/actions/new-password";
+import { newPassword } from "@/actions/auth/new-password";
 import { CardWrapper } from "./card-wrapper";
 import { TextInput } from "@/components/TextInput";
 import { toast } from "sonner";

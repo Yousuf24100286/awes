@@ -5,10 +5,10 @@ import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { RegisterSchema } from "@/schemas";
+import { RegisterSchema } from "@/schemas/auth";
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { register } from "@/actions/register";
+import { register } from "@/actions/auth/register";
 import { CardWrapper } from "./card-wrapper";
 import { TextInput } from "@/components/TextInput";
 import { toast } from "sonner";

@@ -4,8 +4,8 @@ import * as z from 'zod';
 import { AuthError } from 'next-auth';
 
 import { signIn } from '@/auth';
-import { LoginSchema } from '@/schemas';
-import { getUserByEmail } from '@/data/user';
+import { LoginSchema } from '@/schemas/auth';
+import { getUserByEmail } from '@/data/auth/user';
 import { sendVerificationEmail } from '@/lib/mail';
 import { generateVerificationToken } from '@/lib/tokens';
 

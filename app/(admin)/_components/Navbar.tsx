@@ -20,6 +20,11 @@ const navigation = [
     href: '/users',
     show: true,
   },
+  {
+    name: 'Contact Queries',
+    href: '/queries',
+    show: true,
+  },
 ];
 
 const Navigation = () => {
@@ -30,7 +35,11 @@ const Navigation = () => {
         <Button
           key={index}
           asChild
-          variant={item.href === '/static-analytics' && pathname === '/static-analytics' ? 'default' : item.href !== '/static-analytics' && pathname !== '/static-analytics' ? 'default' : 'ghost'}
+          variant={item.href === pathname ? 'default' :
+            item.href === '/users' &&
+              navigation.every((nav) => nav.href !== pathname) ? 'default'
+              : 'ghost'
+          }
         >
           <Link
             href={item.href}
@@ -50,18 +59,18 @@ const Navigation = () => {
 const Navbar = () => {
   return (
     <>
-      <div className="hidden border-r bg-muted/40 md:block">
+      <div className="hidden border-r bg-muted/40 md:block py-2">
         <div className="flex h-full max-h-screen flex-col gap-2 justify-between">
           <div className="flex flex-col gap-2">
             <div className="flex h-14 items-center px-4 lg:h-[60px] lg:px-6">
               <Link className="flex items-center gap-2 font-semibold" href="/">
-                <Image
-                  src="/logo.png"
-                  alt="AWES logo"
-                  width={150}
-                  height={43}
-                />
-
+                <div className="relative aspect-[3.45] w-[150px] md:w-[207px]">
+                  <Image
+                    src="/logo.png"
+                    alt="AWES logo"
+                    fill
+                  />
+                </div>
               </Link>
             </div>
             <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
@@ -85,12 +94,13 @@ const Navbar = () => {
             <Link className="flex items-center gap-2 text-lg font-semibold"
               href="/"
             >
-              <Image
-                src="/logo.png"
-                alt="AWES logo"
-                width={150}
-                height={43}
-              />
+              <div className="relative aspect-[3.45] w-[150px] md:w-[207px]">
+                <Image
+                  src="/logo.png"
+                  alt="AWES logo"
+                  fill
+                />
+              </div>
             </Link>
             <Navigation />
           </nav>

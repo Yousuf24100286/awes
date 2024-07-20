@@ -163,7 +163,6 @@ const Step3 = ({ data }: { data: z.infer<typeof Step3Schema> }) => {
   };
 
   return (
-    // TODO: fix this object check logic
     Object.values(data).every(isEmpty) ? (
       <div className="grid gap-4">
         <h2 className='text-2xl font-bold text-center'>Step 3</h2>

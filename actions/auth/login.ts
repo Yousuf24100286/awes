@@ -10,8 +10,7 @@ import { sendVerificationEmail } from '@/lib/mail';
 import { generateVerificationToken } from '@/lib/tokens';
 
 export const login = async (
-  values: z.infer<typeof LoginSchema>,
-  callbackUrl?: string | null
+  values: z.infer<typeof LoginSchema>
 ) => {
   const validatedFields = LoginSchema.safeParse(values);
 
@@ -48,7 +47,7 @@ export const login = async (
       email,
       password,
       redirectTo:
-        callbackUrl || existingUser.role === 'USER'
+        existingUser.role === 'USER'
           ? '/application'
           : existingUser.role === 'ADMIN'
           ? '/static-analytics'

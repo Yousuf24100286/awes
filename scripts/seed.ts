@@ -104,7 +104,6 @@ async function getOrCreateApplication(userId: string) {
   console.log(
     `getOrCreateApplication: Looking for application for userId=${userId}`
   );
-  // Query the Application model directly using userId
   let application = await db.application.findUnique({
     where: { userId: userId },
   });
@@ -122,14 +121,6 @@ async function getOrCreateApplication(userId: string) {
     console.log(
       `Application created with id: ${application.id}`
     );
-
-    // console.log(
-    //   `Updating user with applicationId=${application.id}`
-    // );
-    // await db.user.update({
-    //   where: { id: userId },
-    //   data: { applicationId: application.id },
-    // });
   }
 
   return application;
@@ -263,14 +254,9 @@ async function main() {
     },
   });
 
-  // Ensure the user was created before proceeding
   if (!user) {
     throw new Error('User creation failed');
   }
-
-  // Ensure the user is committed to the database before proceeding
-  // await db.$disconnect();
-  // prisma = new PrismaClient();
 
   console.log(`User created with id: ${user.id}`);
 

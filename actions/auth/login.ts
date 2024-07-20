@@ -50,7 +50,7 @@ export const login = async (
         existingUser.role === 'USER'
           ? '/application'
           : existingUser.role === 'ADMIN'
-          ? '/static-analytics'
+          ? '/users'
           : '/',
     });
   } catch (error) {

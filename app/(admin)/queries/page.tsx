@@ -1,7 +1,7 @@
 import { Card, CardHeader, CardContent, CardTitle, CardDescription } from "@/components/ui/card";
 import { getContactQueries } from "@/data/contactQuery";
-import QueryClose from "../_components/QueryClose";
 import { Badge } from "@/components/ui/badge";
+import QueryUpdateStatus from "../_components/QueryStatusUpdate";
 
 const QueriesPage = async () => {
   const queries = await getContactQueries();
@@ -16,7 +16,7 @@ const QueriesPage = async () => {
             className="flex flex-col items-left justify-between w-full"
           >
             <CardHeader>
-              <CardTitle className="flex justify-between items-center">
+              <CardTitle className="flex justify-between">
                 <div className="flex items-center gap-2">
                   <Badge variant={
                     query.status === 'PENDING' ? 'destructive' :
@@ -26,7 +26,7 @@ const QueriesPage = async () => {
                   } className="w-max rounded-3xl">{query.status}</Badge>
                   <p className="text-2xl font-semibold">Subject: {query.subject}</p>
                 </div>
-                <QueryClose />
+                <QueryUpdateStatus id={query.id} />
               </CardTitle>
               <CardDescription className="text-black">
               </CardDescription>

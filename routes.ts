@@ -3,7 +3,6 @@ export const publicRoutes = [
   '/about-us',
   '/services',
   '/auth/new-verification',
-  // uploadthing
   '/api/uploadthing',
 ];
 

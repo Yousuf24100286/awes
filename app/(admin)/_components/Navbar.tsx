@@ -16,7 +16,7 @@ const navigation = [
     show: true,
   },
   {
-    name: 'Users',
+    name: 'User Applications',
     href: '/users',
     show: true,
   },

@@ -17,7 +17,7 @@ export default function Navbar() {
 
   const callToAction = role === 'ADMIN' ? (
     <Button variant="brand" size="brand" asChild>
-      <Link href='/static-analytics'>
+      <Link href='/users'>
         Go to Dashboard
       </Link>
     </Button>

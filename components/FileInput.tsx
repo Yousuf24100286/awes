@@ -25,7 +25,6 @@ const INTERNAL_doFormatting = (config?: ExpandedRouteConfig): string => {
 
   const lastType = formattedTypes.pop();
 
-  // Single type uploader label
   const key = allowedTypes[0];
 
   const { maxFileSize } = config[key]!;
@@ -130,7 +129,6 @@ export const FileInput = ({ id, label, required }: FileInputProps) => {
                     <span className='text-xs leading-5 cursor-pointer text-destructive hover:text-destructive/50'
                       onClick={() => {
                         form.setValue(id, '');
-                        // form.trigger(id);
                       }}
                     >
                       <X width={18} height={18} />

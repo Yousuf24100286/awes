@@ -49,7 +49,7 @@ const Navigation = () => {
 export default function Navbar() {
   return (
     <header className="bg-white w-full shadow">
-      <div className="flex items-center justify-between gap-5 px-6 w-full mx-auto h-[75px] md:max-w-3xl xl:max-w-6xl">
+      <div className="flex items-center justify-between gap-5 h-[75px] px-5 w-full mx-auto md:max-w-3xl xl:max-w-6xl">
         <Link href='/' className="flex items-center gap-2.5"
         >
           <div className="relative aspect-[3.45] w-[150px] md:w-[207px]">

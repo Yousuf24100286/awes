@@ -32,7 +32,11 @@ const Navigation = () => {
             key={index}
             asChild
             className='font-medium'
-            variant={item.href === '/documents' && pathname === '/documents' ? 'default' : item.href !== '/documents' && pathname !== '/documents' ? 'default' : 'ghost'}
+            variant={item.href === pathname ? 'default' :
+              item.href === '/application' &&
+                navigation.every((nav) => nav.href !== pathname) ? 'default'
+                : 'ghost'
+            }
           >
             <Link
               href={item.href}
@@ -52,7 +56,7 @@ const Navigation = () => {
 
 const Navbar = () => {
   return (
-    <div className="flex justify-between h-18 items-center px-4 lg:h-[60px] lg:px-6 shadow py-8">
+    <div className="flex justify-between items-center px-4 lg:px-6 shadow py-2">
       <Sheet>
         <SheetTrigger asChild>
           <Button className="shrink-0 md:hidden" size="icon" variant="outline">
@@ -65,25 +69,26 @@ const Navbar = () => {
             <Link className="flex items-center gap-2 text-lg font-semibold"
               href="/"
             >
-              <Image
-                src="/logo.png"
-                alt="AWES logo"
-                width={150}
-                height={43}
-              />
+              <div className="relative aspect-[3.45] w-[150px] md:w-[207px]">
+                <Image
+                  src="/logo.png"
+                  alt="AWES logo"
+                  fill
+                />
+              </div>
             </Link>
             <Navigation />
           </nav>
         </SheetContent>
       </Sheet>
       <Link className="flex items-center gap-2 font-semibold" href="/">
-        <Image
-          src="/logo.png"
-          alt="AWES logo"
-          width={150}
-          height={43}
-        />
-
+        <div className="relative aspect-[3.45] w-[150px] md:w-[207px]">
+          <Image
+            src="/logo.png"
+            alt="AWES logo"
+            fill
+          />
+        </div>
       </Link>
       <UserButton />
     </div>

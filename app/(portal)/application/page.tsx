@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
 import { getUserApplication } from "@/data/application";
 import Link from "next/link";
@@ -29,7 +30,25 @@ const StepHeader = async () => {
             Start the application to access the complete functionality
           </h2>
           <div className="flex flex-col sm:flex-row sm:items-center gap-4 justify-center w-max mx-auto">
-            <Button variant='outline' className="bg-transparent text-white px-10">Read instructions</Button>
+            <Dialog defaultOpen>
+              <DialogTrigger>
+                <Button variant='outline' className="bg-transparent text-white px-10">Read instructions</Button>
+              </DialogTrigger>
+              <DialogContent>
+                <article className="mx-auto prose overflow-y-auto">
+                  <h2 className="text-center">Read instructions</h2>
+                  <ol>
+                    <li>Please put your name  in English exactly as it appears in your nursing school documents and nursing license</li>
+                    <li>Provide documents in PDF format if you can.</li>
+                    <li>High School Diploma and Grades are required  if you graduated from high school less than 10 years ago.</li>
+                    <li>if you want to upload more documents, you could email it to us
+                      {' '}
+                      <a href="mailto:contact@awes.us">contact@awes.us</a>
+                    </li>
+                  </ol>
+                </article>
+              </DialogContent>
+            </Dialog>
             <Button variant='brand' className="px-10" asChild>
               <Link
                 href={`/application/step-${step}`}

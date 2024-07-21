@@ -64,7 +64,6 @@ export const Step2Form = () => {
       passportPhoto: user?.application?.passportPhoto || '',
       passportId: user?.application?.passportId || '',
       nursingSchoolDiploma: user?.application?.nursingSchoolDiploma || '',
-      nursingSchoolTranscript: user?.application?.nursingSchoolTranscript || '',
       nursingExperienceCertificate: user?.application?.nursingExperienceCertificate || '',
     }
   });
@@ -105,7 +104,6 @@ export const Step2Form = () => {
               <FileInput id="passportPhoto" label="Photo (Passport Size)" required />
               <FileInput id="passportId" label="Passport ID" />
               <FileInput id="nursingSchoolDiploma" label="Nursing School Diploma" required />
-              <FileInput id="nursingSchoolTranscript" label="Nursing School Subjects / Grades Transcript" />
               <FileInput id="nursingExperienceCertificate" label="Nursing Experience Certificate" />
             </div>
             <div className="flex gap-2 self-end">

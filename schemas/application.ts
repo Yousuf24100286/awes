@@ -15,6 +15,7 @@ export const Step1Schema = z.object({
   passport: z.string().optional(),
   nursingLicense: z.string().min(1, 'Required'),
   nursingDegree: z.string().min(1, 'Required'),
+  nursingSchoolTranscript: z.string().optional(),
   highSchoolDiploma: z.string().optional(),
   highSchoolGrades: z.string().optional(),
   curriculumVitae: z.string().optional(),
@@ -25,7 +26,6 @@ export const Step2Schema = z.object({
   passportPhoto: z.string().url('Required'),
   passportId: z.string().optional(),
   nursingSchoolDiploma: z.string().url('Required'),
-  nursingSchoolTranscript: z.string().optional(),
   nursingExperienceCertificate: z.string().optional(),
 });
 

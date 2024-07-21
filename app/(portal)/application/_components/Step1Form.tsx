@@ -21,7 +21,7 @@ import { cn } from "@/lib/utils";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { Popover, PopoverTrigger, PopoverContent } from "@/components/ui/popover";
 import { format } from "date-fns";
-import { Calendar } from "@/components/ui/calendar";
+import { CalendarComponent } from "@/components/ui/calendar";
 import { Separator } from "@/components/ui/separator";
 import { FileInput } from "@/components/FileInput";
 import { TextInput } from "@/components/TextInput";
@@ -31,6 +31,9 @@ import Link from "next/link";
 import { useCurrentUser } from "@/hooks/use-current-user";
 import ProtectStep from "@/components/auth/protect-step";
 
+/**
+ * Calendar component has been updated: https://github.com/Octaviocossy/shadcn-ui-better-date-picker
+ */
 const StepHeader = ({ step }: { step: number }) => {
   return (
     <div className="grid gap-2">
@@ -74,7 +77,8 @@ export const Step1Form = () => {
     resolver: zodResolver(Step1Schema),
     defaultValues: {
       name: user?.application?.name || '',
-      dateOfBirth: user?.application?.dateOfBirth || undefined,
+      dateOfBirth: undefined,
+      // dateOfBirth: user?.application?.dateOfBirth ? user.application.dateOfBirth : undefined,
       phoneNumber: user?.application?.phoneNumber || '',
       email: user?.application?.email || '',
       emergencyContactName: user?.application?.emergencyContactName || '',
@@ -84,6 +88,7 @@ export const Step1Form = () => {
       passport: user?.application?.passport || '',
       nursingLicense: user?.application?.nursingLicense || '',
       nursingDegree: user?.application?.nursingDegree || '',
+      nursingSchoolTranscript: user?.application?.nursingSchoolTranscript || '',
       highSchoolDiploma: user?.application?.highSchoolDiploma || '',
       highSchoolGrades: user?.application?.highSchoolGrades || '',
       curriculumVitae: user?.application?.curriculumVitae || '',
@@ -190,7 +195,7 @@ function Section1() {
                     </FormControl>
                   </PopoverTrigger>
                   <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
+                    <CalendarComponent
                       mode="single"
                       selected={field.value}
                       onSelect={field.onChange}
@@ -233,6 +238,7 @@ function Section3() {
       <FileInput id="passport" label="Passport" />
       <FileInput id="nursingLicense" label="Nursing License" required />
       <FileInput id="nursingDegree" label="Nursing Degree" required />
+      <FileInput id="nursingSchoolTranscript" label="Nursing School Subjects / Grades Transcript" />
       <FileInput id="highSchoolDiploma" label="High School Diploma" />
       <FileInput id="highSchoolGrades" label="High School Grades" />
       <FileInput id="curriculumVitae" label="Curriculum Vitae" />

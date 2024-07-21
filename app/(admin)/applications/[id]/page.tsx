@@ -121,6 +121,7 @@ const Step1 = ({ data }: { data: z.infer<typeof Step1Schema> }) => {
           <FormattedField label="Passport" value={data.passport} link />
           <FormattedField label="Nursing License" value={data.nursingLicense} link />
           <FormattedField label="Nursing Degree" value={data.nursingDegree} link />
+          <FormattedField label="Nursing School Transcript" value={data.nursingSchoolTranscript} link />
           <FormattedField label="High School Diploma" value={data.highSchoolDiploma} link />
           <FormattedField label="High School Grades" value={data.highSchoolGrades} link />
           <FormattedField label="Curriculum Vitae" value={data.curriculumVitae} link />
@@ -146,7 +147,6 @@ const Step2 = ({ data }: { data: z.infer<typeof Step2Schema> }) => {
           <FormattedField label="Passport Photo" value={data.passportPhoto} link />
           <FormattedField label="Passport ID" value={data.passportId} link />
           <FormattedField label="Nursing School Diploma" value={data.nursingSchoolDiploma} link />
-          <FormattedField label="Nursing School Transcript" value={data.nursingSchoolTranscript} link />
           <FormattedField label="Nursing Experience Certificate" value={data.nursingExperienceCertificate} link />
         </div>
       </div>

@@ -23,6 +23,13 @@ const config = {
         rubik: ['Rubik', 'sans-serif'],
       },
 
+      backgroundImage: {
+        'custom-gradient':
+          'linear-gradient(289deg, #2779A7 -18.7%, #19615C 37.08%)',
+        'hero-gradient':
+          'linear-gradient(90deg, rgba(0, 0, 0, 0.62) 27.8%, rgba(25, 97, 92, 0.62) 52.64%)',
+      },
+
       /* shadcn/ui */
       colors: {
         /* custom */

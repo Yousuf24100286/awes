@@ -1,3 +1,5 @@
+'use client';
+
 import Link from "next/link";
 import {
   Sheet,
@@ -7,6 +9,42 @@ import {
 import { Menu } from "lucide-react";
 import Image from "next/image";
 import CallToAction from "./CallToAction";
+import { usePathname } from "next/navigation";
+import { cn } from "@/lib/utils";
+
+const navigation = [
+  {
+    name: 'Home',
+    href: '/',
+    show: true,
+  },
+  {
+    name: 'Services',
+    href: '/services',
+    show: true,
+  },
+  {
+    name: 'About us',
+    href: '/about-us',
+    show: true,
+  },
+];
+
+
+const Navigation = () => {
+  const pathname = usePathname();
+  return (
+    navigation.map((item, index) => {
+      return (
+        <Link
+          key={index}
+          href={item.href}
+          className={cn('hover:text-dark-marron', item.href === pathname && 'text-dark-marron')}
+        >{item.name}</Link>
+      );
+    })
+  )
+};
 
 export default function Navbar() {
   return (
@@ -24,9 +62,7 @@ export default function Navbar() {
         </Link>
         <div className="hidden md:flex gap-8">
           <nav className="flex gap-5 my-auto">
-            <Link href='/' className='hover:text-dark-marron'>Home</Link>
-            <Link href='/services' className='hover:text-dark-marron'>Services</Link>
-            <Link href='/about-us' className='hover:text-dark-marron'>About us</Link>
+            <Navigation />
           </nav>
           <CallToAction />
         </div>
@@ -47,9 +83,7 @@ export default function Navbar() {
                 </div>
               </Link>
               <nav className="flex flex-col gap-5 my-auto">
-                <Link href='/' className='hover:text-dark-marron'>Home</Link>
-                <Link href='/services' className='hover:text-dark-marron'>Services</Link>
-                <Link href='/about-us' className='hover:text-dark-marron'>About us</Link>
+                <Navigation />
               </nav>
               <CallToAction />
             </div>

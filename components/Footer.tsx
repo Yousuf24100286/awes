@@ -11,7 +11,7 @@ import { useState, useTransition } from "react";
 import { toast } from "sonner";
 import { subscribeNewsletter } from "@/actions/subscribe-newsletter";
 
-export default function Footer() {
+const Footer = () => {
   const [email, setEmail] = useState('')
   const [isPending, startTransition] = useTransition();
 
@@ -110,3 +110,4 @@ export default function Footer() {
   )
 }
 
+export default Footer;

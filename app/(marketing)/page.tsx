@@ -30,7 +30,7 @@ const features = [
     imgAlt: "Get state RN license for 42 states Icon",
     title: "Get state RN license for 42 states",
     description:
-      "Streamline your maintenance operations with our intelligent Computerized Machine Maintenance Software (CMMS). Designed to enhance productivity and minimize downtime, our CMMS solution automates scheduling, tracks asset health, and manages work orders with ease.",
+      "AWES helps you obtain the compact state nursing license (eNLC), making you eligible to practice nursing in 42 states. We provide resources and guidance to secure your license.",
   },
   {
     imgSrc: "/feature5.svg",

@@ -1,42 +1,14 @@
-'use client';
-
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
-} from "@/components/ui/sheet"
+} from "@/components/ui/sheet";
 import { Menu } from "lucide-react";
-import { LoginButton } from "@/components/auth/login-button";
-import { useCurrentRole } from "@/hooks/use-current-role";
 import Image from "next/image";
+import CallToAction from "./CallToAction";
 
 export default function Navbar() {
-  const role = useCurrentRole();
-
-  const callToAction = role === 'ADMIN' ? (
-    <Button variant="brand" size="brand" asChild>
-      <Link href='/users'>
-        Go to Dashboard
-      </Link>
-    </Button>
-  ) :
-    role === 'USER' ? (
-      <Button variant="brand" size="brand" asChild>
-        <Link href='/application'>
-          Go to Dashboard
-        </Link>
-      </Button>
-    )
-      : (
-        <LoginButton asChild>
-          <Button variant="brand" size="brand">
-            Apply now
-          </Button>
-        </LoginButton>
-      );
-
   return (
     <header className="bg-white w-full shadow">
       <div className="flex items-center justify-between gap-5 px-6 w-full mx-auto h-[75px] md:max-w-3xl xl:max-w-6xl">
@@ -56,7 +28,7 @@ export default function Navbar() {
             <Link href='/services' className='hover:text-dark-marron'>Services</Link>
             <Link href='/about-us' className='hover:text-dark-marron'>About us</Link>
           </nav>
-          {callToAction}
+          <CallToAction />
         </div>
         <Sheet>
           <SheetTrigger className="block md:hidden">
@@ -79,7 +51,7 @@ export default function Navbar() {
                 <Link href='/services' className='hover:text-dark-marron'>Services</Link>
                 <Link href='/about-us' className='hover:text-dark-marron'>About us</Link>
               </nav>
-              {callToAction}
+              <CallToAction />
             </div>
           </SheetContent>
         </Sheet>

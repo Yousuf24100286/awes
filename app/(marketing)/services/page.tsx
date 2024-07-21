@@ -1,3 +1,7 @@
+import CallToAction from "@/components/CallToAction";
+import { Button } from "@/components/ui/button";
+import Image from "next/image";
+
 const ServiceCard = ({ title, description, imageSrc }: { title: string; description: React.ReactNode; imageSrc: string }) => (
   <section className="mt-32 w-full max-w-[1186px] max-md:mt-10 max-md:max-w-full">
     <div className="flex gap-5 max-md:flex-col max-md:gap-0">
@@ -127,15 +131,16 @@ const ServicesPage = () => {
           </div>
         </section>
 
-        <section className="flex overflow-hidden relative flex-col justify-center px-px mt-32 w-full text-center max-w-[1146px] min-h-[411px] max-md:mt-10 max-md:max-w-full">
-          <img loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/6d6a02b4efb2f51ae6f7b6d1a2f8e3e4908ea2b4f964f543f19b64e0be987ab2?apiKey=37e9b177900140c9be4212bdea99ec1b&" alt="" className="object-cover absolute inset-0 size-full" />
-          <div className="flex relative flex-col px-20 py-20 rounded-3xl bg-slate-950 bg-opacity-30 max-md:px-5 max-md:max-w-full">
-            <h2 className="mt-14 text-5xl font-extrabold tracking-wide text-white leading-[56px] max-md:mt-10 max-md:max-w-full">
-              Your dream nursing career away in US is just a click away
-            </h2>
-            <button className="justify-center self-center px-4 py-2.5 mt-4 text-base font-bold leading-6 text-white bg-pink-900 rounded-lg shadow-sm">
-              Apply now
-            </button>
+        <section className="w-full my-28 px-5">
+          <div className="relative mx-auto my-16 xl:my-28 w-full md:max-w-3xl xl:max-w-6xl rounded-2xl">
+            <Image loading="lazy" src="https://cdn.builder.io/api/v1/image/assets/TEMP/6d6a02b4efb2f51ae6f7b6d1a2f8e3e4908ea2b4f964f543f19b64e0be987ab2?apiKey=37e9b177900140c9be4212bdea99ec1b&" alt="Call To Action"
+              className="object-cover rounded-2xl" fill />
+            <div className="relative bg-black bg-opacity-30 flex flex-col items-center justify-center gap-16 rounded-2xl md:gap-10 xl:gap-5 gap grow px-8 min-h-[411px]">
+              <h2 className="text-3xl md:text-5xl font-extrabold tracking-wide text-white leading-10 md:leading-[56px] text-center">
+                Your dream nursing career away in US is just a click away
+              </h2>
+              <CallToAction />
+            </div>
           </div>
         </section>
       </main>

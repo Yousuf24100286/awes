@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { ApplicationStep } from '@prisma/client';
 
 export const Step1Schema = z.object({
   name: z.string().min(1, 'Required'),
@@ -61,4 +62,8 @@ export const AdminDocumentsSchema = z.object({
   usCgfnsCertificate: z.string().optional(),
   usVisaScreen: z.string().optional(),
   usJobOffer: z.string().optional(),
+});
+
+export const ApplicationStepUpdateSchema = z.object({
+  status: z.nativeEnum(ApplicationStep),
 });

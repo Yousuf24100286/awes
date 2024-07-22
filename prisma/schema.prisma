@@ -13,9 +13,11 @@ enum UserRole {
 }
 
 enum ApplicationStep {
+  NOT_ALLOWED
   STEP_1
   STEP_2
   STEP_3
+  COMPLETED
 }
 
 model User {
@@ -71,7 +73,9 @@ model PasswordResetToken {
 model Application {
   id String @id @default(cuid())
 
-  applicationStep ApplicationStep @default(STEP_1)
+  applicationId Int @unique @default(autoincrement())
+
+  applicationStep ApplicationStep @default(NOT_ALLOWED)
   feedback        String?
 
   // STEP 1

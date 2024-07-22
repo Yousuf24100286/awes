@@ -110,39 +110,6 @@ export const addFeedback = async (
   });
 };
 
-export const updateApplicationStep = async (
-  applicationId: string
-) => {
-  const application = await db.application.findUnique({
-    where: { id: applicationId },
-  });
-
-  if (!application) {
-    return -1;
-  }
-
-  let nextStep = application.applicationStep;
-  switch (application.applicationStep) {
-    case ApplicationStep.STEP_1:
-      nextStep = ApplicationStep.STEP_2;
-      break;
-    case ApplicationStep.STEP_2:
-      nextStep = ApplicationStep.STEP_3;
-      break;
-    default:
-      return 0;
-  }
-
-  await db.application.update({
-    where: { id: application.id },
-    data: {
-      applicationStep: nextStep,
-    },
-  });
-
-  return 1;
-};
-
 export const getApplicationStep = async () => {
   const user = await currentUser();
 

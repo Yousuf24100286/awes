@@ -12,7 +12,11 @@ const StepHeader = async () => {
     return null;
   }
 
-  const step = user.application?.applicationStep === 'STEP_1' ? 1 : user.application?.applicationStep === 'STEP_2' ? 2 : 3;
+  const step = user.application?.applicationStep === 'NOT_ALLOWED' ? 'Not Allowed' :
+    user.application?.applicationStep === 'STEP_1' ? 'Step-1' :
+      user.application?.applicationStep === 'STEP_2' ? 'Step-2' :
+        user.application?.applicationStep === 'STEP_3' ? 'Step-3' :
+          user.application?.applicationStep === 'COMPLETED' ? 'Completed' : 'Not Allowed';
 
   return (
     <div className="grid gap-8">
@@ -49,10 +53,15 @@ const StepHeader = async () => {
                 </article>
               </DialogContent>
             </Dialog>
-            <Button variant='brand' className="px-10" asChild>
+            <Button variant='brand' className="px-10"
+              disabled={step === 'Not Allowed' || step === 'Completed'}
+              asChild={step !== 'Not Allowed' && step !== 'Completed'}
+            >
               <Link
-                href={`/application/step-${step}`}
-              >Continue application</Link>
+                href={`/application/${step}`}
+              >
+                {step === 'Not Allowed' || step === 'Completed' ? step : 'Continue Application'}
+              </Link>
             </Button>
           </div>
         </div>
@@ -62,13 +71,15 @@ const StepHeader = async () => {
               <span>
                 Application Status:
               </span>
-              <span className="text-[#19615C] whitespace-nowrap">In progress</span>
+              <span className="text-[#19615C] whitespace-nowrap">
+                {step !== 'Not Allowed' && step !== 'Completed' ? 'In Progress' : step}
+              </span>
             </div>
           </div>
           <div className="grid gap-4 px-5 py-7 rounded-2xl border-2 border-[#04092152] w-full sm:w-[calc(50%_-_8px)]">
             <div className="flex items-center font-bold text-xl justify-between">
               <span className="whitespace-nowrap">Accessible steps:</span>
-              <span className="text-[#19615C] whitespace-nowrap">Step {step}</span>
+              <span className="text-[#19615C] whitespace-nowrap">{step}</span>
             </div>
           </div>
         </div>

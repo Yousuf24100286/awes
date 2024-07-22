@@ -6,8 +6,8 @@ import { AdminDocumentsSchema, Step1Schema, Step2Schema, Step3Schema } from '@/s
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import Feedback from './_components/Feedback';
-import NextStep from './_components/NextStep';
 import AdminDocumentsUpload from './_components/AdminDocumentsUpload';
+import ApplicationUpdateStatus from '../../_components/ApplicationStatusUpdate';
 
 
 const nullToUndefined = (obj: any) => {
@@ -265,12 +265,13 @@ const ApplicationPage = async ({ params }: { params: { id: string } }) => {
           <div className="flex flex-row justify-between items-center">
             <div>
               <CardTitle><span className='font-normal text-base'>Name: </span>{user.name}</CardTitle>
-              <CardTitle><span className='font-normal text-base'>Application ID: </span>{user.application.id}</CardTitle>
+              <CardTitle><span className='font-normal text-base'>Application ID: </span>
+                {user.application.applicationId.toString().padStart(6, '0')}</CardTitle>
               <CardTitle><span className='font-normal text-base'>Steps allowed: </span>{user.application.applicationStep}</CardTitle>
             </div>
             <div className='grid gap-1'>
+              <ApplicationUpdateStatus id={user.application.id} step={user.application.applicationStep} />
               <Feedback applicationId={user.application.id} />
-              <NextStep applicationId={user.application.id} />
               <AdminDocumentsUpload applicationId={user.application.id} />
             </div>
           </div>

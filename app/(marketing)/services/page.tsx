@@ -121,7 +121,7 @@ const ServicesPage = () => {
               className="object-cover rounded-2xl" fill />
             <div className="relative bg-black bg-opacity-30 flex flex-col items-center justify-center gap-16 rounded-2xl md:gap-10 xl:gap-5 gap grow px-8 min-h-[411px]">
               <h2 className="text-3xl md:text-5xl font-extrabold tracking-wide text-white leading-10 md:leading-[56px] text-center">
-                Your dream nursing career away in US is just a click away
+                Your dream nursing career in US is just a click away
               </h2>
               <CallToAction />
             </div>

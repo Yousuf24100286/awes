@@ -13,9 +13,9 @@ const StepHeader = async () => {
   }
 
   const step = user.application?.applicationStep === 'NOT_ALLOWED' ? 'Not Allowed' :
-    user.application?.applicationStep === 'STEP_1' ? 'Step-1' :
-      user.application?.applicationStep === 'STEP_2' ? 'Step-2' :
-        user.application?.applicationStep === 'STEP_3' ? 'Step-3' :
+    user.application?.applicationStep === 'STEP_1' ? 'step-1' :
+      user.application?.applicationStep === 'STEP_2' ? 'step-2' :
+        user.application?.applicationStep === 'STEP_3' ? 'step-3' :
           user.application?.applicationStep === 'COMPLETED' ? 'Completed' : 'Not Allowed';
 
   return (

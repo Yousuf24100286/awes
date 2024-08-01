@@ -52,7 +52,7 @@ const ServicesList = () => {
       title="Study and pass CGFNS certificate program"
       description={
         <div className="text-base leading-6">
-          <p className="font-bold">1. Paid One-Year Access to Online Nursing Study Courses Includes:</p>
+          <p className="font-bold">1. Paid 6-Months Access to Online Nursing Study Courses Includes:</p>
           <ul className="list-disc ml-8 my-6">
             <li>2900+ Total Questions & Rationales</li>
             <li>Self-paced Full-length Crash Course Videos on All Topics</li>

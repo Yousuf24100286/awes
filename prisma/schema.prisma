@@ -79,27 +79,27 @@ model Application {
   feedback        String?
 
   // STEP 1
-  name                   String?
-  dateOfBirth            DateTime?
-  phoneNumber            String?
-  email                  String?
-  emergencyContactName   String?
-  emergencyContactEmail  String?
-  emergencyContactNumber String?
-  nationalIdCard         String?
-  passport               String?
-  nursingLicense         String?
-  nursingDegree          String?
-  highSchoolDiploma      String?
-  highSchoolGrades       String?
-  curriculumVitae        String?
+  name                    String?
+  dateOfBirth             DateTime?
+  phoneNumber             String?
+  email                   String?
+  emergencyContactName    String?
+  emergencyContactEmail   String?
+  emergencyContactNumber  String?
+  nationalIdCard          String?
+  passport                String?
+  nursingLicense          String?
+  nursingDegree           String?
+  nursingSchoolTranscript String?
+  highSchoolDiploma       String?
+  highSchoolGrades        String?
+  curriculumVitae         String?
 
   // STEP 2
   nationalId                   String?
   passportPhoto                String?
   passportId                   String?
   nursingSchoolDiploma         String?
-  nursingSchoolTranscript      String?
   nursingExperienceCertificate String?
 
   // STEP 3

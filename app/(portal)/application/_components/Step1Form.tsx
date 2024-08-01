@@ -71,6 +71,7 @@ export const Step1Form = () => {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
+
   const user = useCurrentUser();
 
   const form = useForm<z.infer<typeof Step1Schema>>({
@@ -238,7 +239,7 @@ function Section3() {
       <FileInput id="passport" label="Passport" />
       <FileInput id="nursingLicense" label="Nursing License" required />
       <FileInput id="nursingDegree" label="Nursing Degree" required />
-      <FileInput id="nursingSchoolTranscript" label="Nursing School Subjects / Grades Transcript" />
+      <FileInput id="nursingSchoolTranscript" label="Nursing School Subjects / Grades Transcript" required />
       <FileInput id="highSchoolDiploma" label="High School Diploma" />
       <FileInput id="highSchoolGrades" label="High School Grades" />
       <FileInput id="curriculumVitae" label="Curriculum Vitae" />

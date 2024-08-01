@@ -9,7 +9,7 @@ import { ourFileRouter } from "@/app/api/uploadthing/core";
 
 export const metadata: Metadata = {
   title: 'AWES',
-  description: 'AWES is a leading technology agency specializing in innovative solutions, including process automation, custom software development, and IT consultation.',
+  description: 'American Worldwide Educational Services (AWES) is your trusted partner, guiding you from being a foreign graduate nurse to joining the U.S. healthcare profession and becoming a U.S. citizen.',
 }
 
 export default async function RootLayout({

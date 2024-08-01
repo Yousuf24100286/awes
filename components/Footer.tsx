@@ -28,9 +28,12 @@ const Footer = () => {
               />
             </div>
           </Link>
-          <p className="mt-[32px] text-sm text-white">
-            American Worldwide Educational Services is your trusted partner, guiding you from being a foreign graduate nurse to joining the U.S. healthcare profession and becoming a U.S. citizen.
-          </p>
+          <div className="mt-[32px] text-sm text-white">
+            <p>40 Wall Street</p>
+            <p>28th Floor, Unit # 270</p>
+            <p>New York NY 1000</p>
+            <p>United States</p>
+          </div>
         </div>
         <div className="flex flex-col md:flex-row gap-5 mt-8 md:mt-28 w-full md:w-9/12 justify-between">
           <form className="md:mx-auto flex gap-3 items-end"

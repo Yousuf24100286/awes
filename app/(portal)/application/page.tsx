@@ -2,8 +2,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
 import { Separator } from "@/components/ui/separator";
-import { getUserApplication } from "@/data/application";
+import { getApplicationStep, getUserApplication } from "@/data/application";
 import Link from "next/link";
+import RenderToast from "./_components/RenderToast";
 
 const StepHeader = async () => {
   const user = await getUserApplication();
@@ -93,12 +94,15 @@ const StepHeader = async () => {
   )
 };
 
-const ApplicationPage = () => {
+const ApplicationPage = async () => {
+  const step = await getApplicationStep();
+
   return (
-    <Card className="bg-[#FFFCF7] w-full">
+    <Card className="bg-[#FFFCF7] w-full relative">
       <CardContent className="p-10 grid gap-6">
         <StepHeader />
       </CardContent>
+      <RenderToast className="absolute right-2 -top-2" step={step?.applicationStep} />
     </Card>
 
   );

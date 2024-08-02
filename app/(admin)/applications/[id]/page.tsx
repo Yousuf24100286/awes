@@ -38,6 +38,7 @@ const FormatApplicationData = (applicationData: Application & { spouseDetails: S
     passport: application.passport,
     nursingLicense: application.nursingLicense,
     nursingDegree: application.nursingDegree,
+    nursingSchoolTranscript: application.nursingSchoolTranscript,
     highSchoolDiploma: application.highSchoolDiploma,
     highSchoolGrades: application.highSchoolGrades,
     curriculumVitae: application.curriculumVitae,
@@ -48,7 +49,6 @@ const FormatApplicationData = (applicationData: Application & { spouseDetails: S
     passportPhoto: application.passportPhoto,
     passportId: application.passportId,
     nursingSchoolDiploma: application.nursingSchoolDiploma,
-    nursingSchoolTranscript: application.nursingSchoolTranscript,
     nursingExperienceCertificate: application.nursingExperienceCertificate,
   }
 

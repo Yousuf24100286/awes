@@ -30,8 +30,8 @@ const Footer = () => {
           </Link>
           <div className="mt-[32px] text-sm text-white">
             <p>40 Wall Street</p>
-            <p>28th Floor, Unit # 270</p>
-            <p>New York NY 1000</p>
+            <p>28th Floor, Unit # 2709</p>
+            <p>New York NY 10005</p>
             <p>United States</p>
           </div>
         </div>
@@ -101,13 +101,13 @@ const Footer = () => {
       <Separator className='hidden md:block' />
       <div className="flex flex-col-reverse md:flex-row py-6 justify-between gap-5 text-sm text-white  md:max-w-3xl xl:max-w-6xl px-5 w-full mx-auto">
         <div className="text-center">©{new Date().getFullYear()} All Rights Reserved</div>
-        <div className="flex gap-3 md:gap-5 md:justify-between justify-center">
+        {/* <div className="flex gap-3 md:gap-5 md:justify-between justify-center">
           <a className="hover:underline">Privacy Policy</a>
           <a className="hover:underline">Terms of Use</a>
           <a className="hover:underline">Sales and Refunds</a>
           <a className="hover:underline">Legal</a>
           <a className="hover:underline">Site Map</a>
-        </div>
+        </div> */}
       </div>
     </section>
   )

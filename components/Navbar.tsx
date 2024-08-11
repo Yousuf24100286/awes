@@ -11,6 +11,7 @@ import Image from "next/image";
 import CallToAction from "./CallToAction";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { Button } from "./ui/button";
 
 const navigation = [
   {
@@ -64,7 +65,14 @@ export default function Navbar() {
           <nav className="flex gap-5 my-auto">
             <Navigation />
           </nav>
-          <CallToAction />
+          <div className="flex gap-2.5">
+            <Button variant='outline' className="h-[50px]">
+              <Link href='/auth/login'>
+                Sign in
+              </Link>
+            </Button>
+            <CallToAction />
+          </div>
         </div>
         <Sheet>
           <SheetTrigger className="block md:hidden">

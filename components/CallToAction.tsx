@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { LoginButton } from "@/components/auth/login-button";
 import { useCurrentRole } from "@/hooks/use-current-role";
+import { RegisterButton } from "./auth/register-button";
 
 const CallToAction = () => {
   const role = useCurrentRole();
@@ -23,11 +23,11 @@ const CallToAction = () => {
       </Button>
     )
       : (
-        <LoginButton asChild>
+        <RegisterButton asChild>
           <Button variant="brand" size="brand" className="w-max">
-            Apply now
+            Sign up
           </Button>
-        </LoginButton>
+        </RegisterButton>
       );
 }
 

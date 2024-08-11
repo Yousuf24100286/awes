@@ -1,7 +1,26 @@
 import CallToAction from "@/components/CallToAction";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import Link from "next/link";
+import SwitchLanguage from "./SwitchLanguage";
+
+
+export default function EnglishLandingPage() {
+  return (
+    <main className='flex flex-col justify-center items-center bg-[#FFFCF7]'>
+      <SwitchLanguage locale='ar' />
+      <Navbar />
+      <HeroSection />
+      <Specializations />
+      <ProcessesSection />
+      <TestimonialsSection />
+      <CallToActionSection />
+      <Footer />
+    </main>
+  );
+}
 
 const features = [
   {
@@ -59,7 +78,6 @@ const processSteps = [
   }
 ];
 
-
 function FeatureCard({ imgSrc, imgAlt, title, description }: { imgSrc: string; imgAlt: string; title: string; description: string }) {
   return (
     <article className="flex flex-col p-7 rounded-xl shadow bg-white lg:w-[calc(50%_-_16px)]">
@@ -70,59 +88,63 @@ function FeatureCard({ imgSrc, imgAlt, title, description }: { imgSrc: string; i
   );
 }
 
-const Specializations = () => (
-  <section className='bg-[#FFFCF7] w-full'>
-    <div className="px-5 w-full mx-auto md:max-w-3xl xl:max-w-6xl">
-      <div className="grid gap-5 w-full max-w-4xl mx-auto my-20">
-        <h2 className="text-center text-3xl md:text-5xl font-bold md:font-extrabold tracking-wide text-sky-600 leading-10 md:leading-[55.86px] w-full md:max-w-3xl xl:max-w-6xl px-5 mx-auto">
-          Services we specialise in
-        </h2>
-        <p className="text-sm text-center text-slate-950 text-opacity-60">
-          American Worldwide Educational Services is your trusted partner, guiding you from being a foreign graduate nurse to joining the U.S. healthcare profession and becoming a U.S. citizen. We’re with you every step of the way.
-        </p>
+function Specializations() {
+  return (
+    <section className='bg-[#FFFCF7] w-full'>
+      <div className="px-5 w-full mx-auto md:max-w-3xl xl:max-w-6xl">
+        <div className="grid gap-5 w-full max-w-4xl mx-auto my-20">
+          <h2 className="text-center text-3xl md:text-5xl font-bold md:font-extrabold tracking-wide text-sky-600 leading-10 md:leading-[55.86px] w-full md:max-w-3xl xl:max-w-6xl px-5 mx-auto">
+            Services we specialise in
+          </h2>
+          <p className="text-sm text-center text-slate-950 text-opacity-60">
+            American Worldwide Educational Services is your trusted partner, guiding you from being a foreign graduate nurse to joining the U.S. healthcare profession and becoming a U.S. citizen. We’re with you every step of the way.
+          </p>
+        </div>
+        <div className='flex flex-row flex-wrap justify-center gap-8'>
+          {
+            features.map((feature, index) => (
+              <FeatureCard
+                key={index}
+                imgSrc={feature.imgSrc}
+                imgAlt={feature.imgAlt}
+                title={feature.title}
+                description={feature.description}
+              />
+            ))
+          }
+        </div>
       </div>
-      <div className='flex flex-row flex-wrap justify-center gap-8'>
-        {
-          features.map((feature, index) => (
-            <FeatureCard
-              key={index}
-              imgSrc={feature.imgSrc}
-              imgAlt={feature.imgAlt}
-              title={feature.title}
-              description={feature.description}
-            />
-          ))
-        }
-      </div>
-    </div>
-  </section>
-);
+    </section>
+  )
+}
 
-const ProcessStep = ({ title, description, image }: { image: string, title: string, description: string }) => {
-  return <div className="self-center px-8 py-6 w-full rounded-3xl border border-[#DF6C4F] border-solid">
-    <div className="flex max-md:flex-col max-md:gap-10">
-      <div className="flex flex-col justify-between w-[66%] max-md:ml-0 max-md:w-full">
-        <div className="space-y-6">
-          <h3 className="text-xl md:text-3xl font-extrabold leading-10 text-sky-600">{title}</h3>
-          <p className="text-sm leading-5 text-slate-950 text-opacity-60">{description}</p>
+function ProcessStep({ title, description, image }: { image: string, title: string, description: string }) {
+  return (
+    <div className="self-center px-8 py-6 w-full rounded-3xl border border-[#DF6C4F] border-solid">
+      <div className="flex max-md:flex-col max-md:gap-10">
+        <div className="flex flex-col justify-between w-[66%] max-md:ml-0 max-md:w-full">
+          <div className="space-y-6">
+            <h3 className="text-xl md:text-3xl font-extrabold leading-10 text-sky-600">{title}</h3>
+            <p className="text-sm leading-5 text-slate-950 text-opacity-60">{description}</p>
+          </div>
+          <div className="max-md:hidden">
+            <CallToAction />
+          </div>
         </div>
-        <div className="max-md:hidden">
-          <CallToAction />
-        </div>
-      </div>
-      <div className="space-y-2 w-[34%] max-md:w-full">
-        <div className="flex flex-col">
-          <img loading="lazy" src={image} alt={`Illustration for ${title}`} className="grow w-full aspect-[1.41]" />
-        </div>
-        <div className="md:hidden">
-          <CallToAction />
+        <div className="space-y-2 w-[34%] max-md:w-full">
+          <div className="flex flex-col">
+            <img loading="lazy" src={image} alt={`Illustration for ${title}`} className="grow w-full aspect-[1.41]" />
+          </div>
+          <div className="md:hidden">
+            <CallToAction />
+          </div>
         </div>
       </div>
     </div>
-  </div>
+  )
 };
 
-const HeroSection = () => {
+function HeroSection() {
   return (
     <>
       <header className="hidden relative md:flex flex-col w-full bg-teal-800">
@@ -167,28 +189,21 @@ const HeroSection = () => {
   )
 }
 
-
-export default function LandingPage() {
+function ProcessesSection() {
   return (
-    <>
-      <HeroSection />
-      <Specializations />
-      <section className='flex flex-col gap-10 xl:gap-20 py-15 w-full'>
-        <h2 className="text-3xl md:text-5xl font-extrabold tracking-wide text-jelly-bean text-center mt-[88px]">
-          See how we work with you
-        </h2>
-        <div className="px-5 w-full mx-auto md:max-w-3xl xl:max-w-6xl space-y-10">
-          {
-            processSteps.map((step, index) => (
-              <ProcessStep key={index} {...step} />
-            ))
-          }
-        </div>
-      </section>
-      <TestimonialsSection />
-      <CallToActionSection />
-    </>
-  );
+    <section className='flex flex-col gap-10 xl:gap-20 py-15 w-full'>
+      <h2 className="text-3xl md:text-5xl font-extrabold tracking-wide text-jelly-bean text-center mt-[88px]">
+        See how we work with you
+      </h2>
+      <div className="px-5 w-full mx-auto md:max-w-3xl xl:max-w-6xl space-y-10">
+        {
+          processSteps.map((step, index) => (
+            <ProcessStep key={index} {...step} />
+          ))
+        }
+      </div>
+    </section>
+  )
 }
 
 function TestimonialsSection() {

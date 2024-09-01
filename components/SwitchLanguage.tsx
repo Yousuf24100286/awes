@@ -9,7 +9,7 @@ const SwitchLanguage = ({ locale }: { locale: 'en' | 'ar' }) => {
         <div className="flex items-center gap-2.5 ml-auto w-max mt-1 text-white hover:cursor-pointer"
           onClick={() => router.push(`/?locale=${locale}`)}
         >
-          {locale === 'ar' ? <p>Switch Language</p> : <p>تبديل اللغة</p>}
+          {locale === 'ar' ? <p>Switch Language to Arabic</p> : <p>تبديل اللغة إلى الإنجليزية</p>}
           <Globe className="w-5 h-5" />
         </div>
       </div>

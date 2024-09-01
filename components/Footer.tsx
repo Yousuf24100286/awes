@@ -1,11 +1,11 @@
 'use client';
 
 import Link from "next/link";
-import { Separator } from '@/components/ui/separator'
-import { Label } from '@/components/ui/label'
-import { Input } from '@/components/ui/input'
-import { Button } from '@/components/ui/button'
-import { Facebook, Instagram, Twitter } from 'lucide-react'
+import { Separator } from '@/components/ui/separator';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
+import { Facebook, Instagram, Linkedin } from 'lucide-react';
 import Image from "next/image";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
@@ -79,20 +79,32 @@ const Footer = () => {
             <div className="flex flex-col text-white gap-5">
               <h3 className="text-base font-medium leading-4">Follow us</h3>
               <div className="flex gap-2">
-                <div className="rounded-full w-6 h-6 bg-white flex justify-between items-center">
+                <a
+                  target="_blank"
+                  href="https://www.instagram.com/awes.us1/"
+                  className="rounded-full w-6 h-6 bg-white flex justify-between items-center"
+                >
                   <Instagram className='text-black w-4 h-4 mx-auto stroke-[1.2px]' />
-                </div>
-                <div className="rounded-full w-6 h-6 bg-white flex justify-between items-center">
+                </a>
+                <a
+                  target="_blank"
+                  href="https://www.facebook.com/people/American-Worldwide-Educational-Services-AWES/61564752781086/"
+                  className="rounded-full w-6 h-6 bg-white flex justify-between items-center"
+                >
                   <Facebook className='text-black w-4 h-4 mx-auto stroke-[1.2px]' />
-                </div>
-                <div className="rounded-full w-6 h-6 bg-white flex justify-between items-center">
-                  <Twitter className='text-black w-4 h-4 mx-auto stroke-[1.2px]' />
-                </div>
+                </a>
+                <a
+                  target="_blank"
+                  href="https://www.linkedin.com/company/american-worldwide-educational-services/"
+                  className="rounded-full w-6 h-6 bg-white flex justify-between items-center"
+                >
+                  <Linkedin className='text-black w-4 h-4 mx-auto stroke-[1.2px]' />
+                </a>
               </div>
             </div>
             <div className="flex flex-col text-white gap-5">
               <h3 className="text-base font-medium leading-4">Call us</h3>
-              <p className="text-sm whitespace-nowrap">1-866-708-4372</p>
+              <a href="tel:1-888-618-6258" className="text-sm whitespace-nowrap">1-888-618-6258</a>
             </div>
           </div>
         </div>
